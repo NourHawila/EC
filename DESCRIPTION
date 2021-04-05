@@ -16,8 +16,7 @@ Description: Implementing non-inferiority tests with accompanying p-values and c
     could be done using different test statistics including an exact-corrrected method. Functions for computing
     the true levels for the
     p-value and confidence interval methods are also calculated. 
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

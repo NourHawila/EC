@@ -21,7 +21,11 @@
 
 \item{EC}{TRUE if confidence limits are exact-corrected to match Chan's exact p-value}
 
+\item{alpha}{significance level}
+
 \item{tol}{tolerance for convergence}
+
+\item{...}{additional paramaters}
 }
 \value{
 List of lower and upper confidence limits (D.lower, D.upper)

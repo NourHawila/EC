@@ -132,15 +132,10 @@ order.mat = function(N.T, N.C, Delta0, method) {
 #'
 #' This function checks whether Barnard's Criterion is verified
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
+#' @param mat (N.T+1)x(N.C+1) array where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @return TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 #' @export
-c.check=function(mat){
+barnard.check=function(mat){
   N.T=dim(mat)[1]-1
   N.C=dim(mat)[2]-1
 
@@ -168,7 +163,7 @@ c.check=function(mat){
 #' @param tol increment size for domain of Delta, default set to 0.001
 #' @return Exact p-value
 #' @export
-chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3,...) {
+chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
   myorder.mat = order.mat(N.T, N.C, Delta0 = Delta0, method = method)
   obs = myorder.mat[x.T + 1, x.C + 1]
 
@@ -318,11 +313,11 @@ chan.level = function(alpha, N.T, N.C, Delta0, method) {
 #' @param Delta0  non-inferiority margin
 #' @param method method for ordering criterion
 #' @param EC TRUE if confidence limits are exact-corrected to match Chan's exact p-value
-#' @alpha significance level
+#' @param alpha significance level
 #' @param tol tolerance for convergence
 #' @return List of lower and upper confidence limits (D.lower, D.upper)
 #' @export
-confint.z <- function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10,...) {
+confint.z <- function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
   ECval=0
   count=0
   if(EC==TRUE){
