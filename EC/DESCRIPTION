@@ -1,4 +1,4 @@
-Package: myfirstpackage
+Package: EC
 Title: Implemention of the Exact-Corrected Non-inferiority Test
 Version: 0.0.0.9000
 Authors@R: 
