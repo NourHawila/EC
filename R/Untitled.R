@@ -401,9 +401,9 @@ confint.z <- function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-
 #' @param width range from starting values based on Miettinen & Nurminen confidence limits
 #' @return Chan and Zhang Confidence Interval
 #' @export
-chan.zhang <- function(x.T, x.C, N.T, N.C, Delta0, method, alpha=.05, tol=1e-3, width=0.3) {
-  d_LL = confint.z(x.T, x.C, N.T, N.C, Delta0=Delta0, method,EC=F)$D.lower
-  d_UL = confint.z(x.T, x.C, N.T, N.C, Delta0=Delta0, method,EC=F)$D.upper
+chan.zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
+  d_LL = confint.z(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
+  d_UL = confint.z(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.upper
 
   deltaL=seq(max(-d_LL-width,-0.9999),min(-d_LL+width,0.9999),tol)
   deltaU=seq(max(-d_UL-width,-0.9999),min(-d_UL+width,0.9999),tol)
@@ -445,7 +445,7 @@ ci.level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, widt
   for(i in 0:N.T) {
     for(j in 0:N.C) {
       if(CZ) {
-        ci = chan.zhang(x.T=i,x.C=j,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,tol=tolCZ,width=width,alpha=alpha)
+        ci = chan.zhang(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
         lb=ci$D.lower
         ub=ci$D.upper
         count=ci$count
