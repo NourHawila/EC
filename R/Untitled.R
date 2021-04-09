@@ -1,14 +1,17 @@
 #' Restricted MLE of Variance
 #'
-#' This function calculate the maximum likelihood estimator (MLE) of the variance
-#' restricted to P.T-P.C=-Delta
+#' calculate the maximum likelihood estimator (MLE) of the variance
+#' restricted to P.T-P.C=-Delta.
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta  constraint for P.C-P.T
-#' @return a vector (MR.T, MR.C) where MR.T and MR.C are the restricted MLE for the Treatment and Control group respectively
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta  numeric between -1 and 1 representing the constraint for P.C-P.T
+#' @return list of length 2 where the first element is MR.T representing the MLE for the treatment group and the second element is MR.C representing the MLE for the control group
+#' @example
+#' #calculate MLE of variance of 5/10 and 7/10 under the constraint P.T=P.C-0.2
+#' restricted.ml(5,7,10,10,0.2)
 #' @export
 restricted.ml = function(x.T, x.C, N.T, N.C, Delta) {
   R.T = x.T/N.T
@@ -36,18 +39,18 @@ restricted.ml = function(x.T, x.C, N.T, N.C, Delta) {
 
 
 
-#' Test Statistic for Non-inferiority Hypothesis
+#' Delta-projected Test Statistic for Non-inferiority Hypothesis
 #'
 #' This function  calculate statistics for testing non-inferiority based on (Santner & Snell (1980), Blackwelder (1982),
 #' Miettinen & Nurminen (1985) and Farrington & Manning (1990))
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
-#' @return statistic value of ordering criterion
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @return numeric representing the value of the test statistic
 #' @export
 orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
   rml = restricted.ml(
@@ -102,13 +105,13 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 
 #' Order Statistic for all 2x2 Tables
 #'
-#' This function calculate order statistic for all 2x2 tables given N.T, N.C and an ordering criterion
+#' This function calculate the order statistics for all 2x2 tables
 #'
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0 non-inferiority margin
-#' @param method method for ordering criterion
-#' @return (N.T+1)x(N.C+1) array where the (i,j) element is the order statistic for x.T=i and x.C=j
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @return array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @export
 order.mat = function(N.T, N.C, Delta0, method) {
   res = array(NA, dim = c(N.T + 1, N.C + 1))
@@ -132,8 +135,8 @@ order.mat = function(N.T, N.C, Delta0, method) {
 #'
 #' This function checks whether Barnard's Criterion is verified
 #'
-#' @param mat (N.T+1)x(N.C+1) array where the (i,j) element is the order statistic for x.T=i and x.C=j
-#' @return TRUE if Barnard's Criterion is satisfied, FALSE otherwise
+#' @param mat array of dimensioins (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
+#' @return logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 #' @export
 barnard.check=function(mat){
   N.T=dim(mat)[1]-1
@@ -153,15 +156,15 @@ barnard.check=function(mat){
 #'
 #' This function calculates the exact p-value based on Chan (1998)
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
-#' @param lower TRUE for the null hypothesis P.T-P.C<=-Delta0, FALSE for the null hypothesis P.T-P.C>-Delta0
-#' @param tol increment size for domain of Delta, default set to 0.001
-#' @return Exact p-value
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @param lower logical. TRUE for the null hypothesis P.T-P.C<=-Delta0.FALSE for the null hypothesis P.T-P.C>-Delta0
+#' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
+#' @return numeric representing Chan's exact p-value
 #' @export
 chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
   myorder.mat = order.mat(N.T, N.C, Delta0 = Delta0, method = method)
@@ -189,11 +192,11 @@ chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #'
 #' This function calculates the Chan p-values for all 2x2 tables given N.T, N.C and an ordering criterion
 #'
-#' @param N.T  Sample size in Treatment group
-#' @param N.C  Sample size in Control group
-#' @param Delta0  Non-inferiority margin
-#' @param method method for ordering criterion
-#' @return (N.T+1)x(N.C+1) array where the (i,j) element is the exact p-value for x.T=i and x.C=j
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @return array of dimension (N.T+1)x(N.C+1)  where the (i,j) element is the exact p-value for x.T=i and x.C=j
 #' @export
 #'
 chan.mat = function(N.T, N.C, Delta0, method) {
@@ -217,13 +220,13 @@ chan.mat = function(N.T, N.C, Delta0, method) {
 #'
 #' This function calculates the Exact-Corrected test statistic
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta  constraint for P.C-P.T
-#' @param Delta0  non-inferiority margin
-#' @return Exact-Corrected statistic
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta  numeric between -1 and 1 representing the constraint for P.C-P.T
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @return numeric representing the value of the exact-corrected test statistic
 #' @export
 orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   ECval=0
@@ -249,13 +252,13 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
 #'
 #' This function evaluates the Binomial likelihood under P.T-P.C=-Delta0
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param P.T  proportion of responders in Treatment group
-#' @param Delta0  non-inferiority margin
-#' @return Exact p-value
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param P.T  numeric between 0 and 1 representing the proportion of responders in the treatment group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @return numeric representing the probability of getting the observed outcomeunder the null hypothesis
 #' @export
 likelihood.null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
   P.C = P.T + Delta0
@@ -266,12 +269,12 @@ likelihood.null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
 #'
 #' This function calculates the level of the exact p-value based on Chan (1998)
 #'
-#' @param alpha  significance level
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
-#' @return True level of Chan's p-value
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @return numeric representing the level using Chan's p-value method
 #' @export
 chan.level = function(alpha, N.T, N.C, Delta0, method) {
   mat = chan.mat(
@@ -306,18 +309,18 @@ chan.level = function(alpha, N.T, N.C, Delta0, method) {
 #' This function computes the confidence interval limits given an ordering criterion with or
 #' without the exact-correction
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
-#' @param EC TRUE if confidence limits are exact-corrected to match Chan's exact p-value
-#' @param alpha significance level
-#' @param tol tolerance for convergence
-#' @return List of lower and upper confidence limits (D.lower, D.upper)
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @param EC logical. TRUE for the exact-corrected confidence limits. FALSE for default method without exact-correction
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param tol positive numeric representing the tolerance for convergence
+#' @return list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
 #' @export
-confint.z = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
+confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
   ECval=0
   count=0
   if(EC==TRUE){
@@ -390,20 +393,19 @@ confint.z = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-1
 #'
 #' This function calculates the confidence interval based on Chan and Zhang (1999)
 #'
-#' @param x.T  observed number of responders in Treatment group
-#' @param x.C  observed number of responders in Control group
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
-#' @param alpha significance level
-#' @param tol increment size for domain of Delta, default set to 0.001
-#' @param width range from starting values based on Miettinen & Nurminen confidence limits
-#' @return Chan and Zhang Confidence Interval
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
+#' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
+#' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
 #' @export
 chan.zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
-  d_LL = confint.z(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
-  d_UL = confint.z(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.upper
+  d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
+  d_UL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.upper
 
   deltaL=seq(max(-d_LL-width,-0.9999),min(-d_LL+width,0.9999),tol)
   deltaU=seq(max(-d_UL-width,-0.9999),min(-d_UL+width,0.9999),tol)
@@ -428,17 +430,17 @@ chan.zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
 #'
 #' This function evaluates true level of decision rule based on confidence interval method
 #'
-#' @param alpha  significance level
-#' @param N.T  sample size in Treatment group
-#' @param N.C  sample size in Control group
-#' @param Delta0  non-inferiority margin
-#' @param method method for ordering criterion
-#' @param EC TRUE if confidence limits are exact-corrected to match Chan's exact p-value, only relevant if CZ=F
-#' @param tolEC tolerance for convergence
-#' @param CZ TRUE if Chan and Zhang method used, FALSE otherwise
-#' @param tolCZ increment size for domain of Delta, default set to 0.001
-#' @param width range from starting values based on Miettinen & Nurminen confidence limits
-#' @return Level of test based on the specified confidence interval
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @param EC logical. TRUE for the exact-corrected confidence limits. FALSE for default method without exact-correction. Only relevant if CZ=F
+#' @param tolEC positive numeric representing the tolerance for confidence interval convergence
+#' @param CZ logical. TRUE for Chan and Zhang confidence limits. FALSE for Exact-corrected (EC=T) or default method without correction (EC=F)
+#' @param tolCZ positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
+#' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
+#' @return numeric representing the level of test based on the specified confidence interval method
 #' @export
 ci.level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, width) {
   M=matrix(0,N.T+1,N.C+1)
@@ -451,7 +453,7 @@ ci.level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, widt
         count=ci$count
       }
       if(!CZ) {
-        ci = confint.z(x.T=i,x.C=j,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,EC=EC,alpha=alpha,tol=tolEC)
+        ci = confintZ(x.T=i,x.C=j,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,EC=EC,alpha=alpha,tol=tolEC)
         lb=ci$D.lower
         ub=ci$D.upper
         count=ci$count
