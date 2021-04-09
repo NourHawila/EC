@@ -301,7 +301,7 @@ chan.level = function(alpha, N.T, N.C, Delta0, method) {
   list(mat = mat, dimind = dim(ind), res = res, level = max(res))
 }
 
-#' Chan's Exact P-value
+#' Non-inferiority Confidence Intervals
 #'
 #' This function computes the confidence interval limits given an ordering criterion with or
 #' without the exact-correction
@@ -317,7 +317,7 @@ chan.level = function(alpha, N.T, N.C, Delta0, method) {
 #' @param tol tolerance for convergence
 #' @return List of lower and upper confidence limits (D.lower, D.upper)
 #' @export
-confint.z <- function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
+confint.z = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
   ECval=0
   count=0
   if(EC==TRUE){
