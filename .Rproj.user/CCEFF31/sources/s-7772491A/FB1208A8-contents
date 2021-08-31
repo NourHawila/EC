@@ -1,0 +1,13 @@
+#install.packages("roxygen2")
+#install.packages("roxygen2")
+
+devtools::document()
+devtools::load_all()
+use_mit_license("Nour Hawila")
+#devtools::install_github("NourHawila/NonInferiority/myfirstpackage")
+devtools::check()
+devtools::build()
+devtools::run_examples()
+devtools::install_github("NourHawila/NonInferiority", force=TRUE,auth_token = "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")
+#library(devtools)
+install_github("NourHawila/EC")
