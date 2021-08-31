@@ -116,11 +116,11 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
-#' @example
-#' order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN")
+#' @examples
+#' order.mat(N.T=15,N.C=15,Delta0=0.3,method="MN")
 #' #16x16 array resembling the Miettinen & Nurminen test statistic for all possible 2x2 tables arising from a sample size of 15 in the treatment and control group and 30% noninferiority margin.
 #' @export
-order_mat = function(N.T, N.C, Delta0, method) {
+order.mat = function(N.T, N.C, Delta0, method) {
   res = array(NA, dim = c(N.T + 1, N.C + 1))
 
   for (i1 in 0:(N.T)) {
@@ -145,7 +145,7 @@ order_mat = function(N.T, N.C, Delta0, method) {
 #' @param mat array of dimensioins (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @return logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 #' @export
-barnard_check=function(mat){
+barnard.check=function(mat){
   N.T=dim(mat)[1]-1
   N.C=dim(mat)[2]-1
 
@@ -172,13 +172,13 @@ barnard_check=function(mat){
 #' @param lower logical. TRUE for the null hypothesis P.T-P.C<=-Delta0.FALSE for the null hypothesis P.T-P.C>-Delta0
 #' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @return numeric representing Chan's exact p-value
-#' @example
-#' chan_pval(x.T=173, x.C=174, N.T=181, N.C=181, Delta0=0.05, method="MN")
+#' @examples
+#' chan.pval(x.T=173, x.C=174, N.T=181, N.C=181, Delta0=0.05, method="MN")
 #' Chan's p-value for the Kim et al. (2013) study
 #' @export
-chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
-  myorder_mat = order_mat(N.T, N.C, Delta0 = Delta0, method = method)
-  obs = myorder_mat[x.T + 1, x.C + 1]
+chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
+  myorder.mat = order.mat(N.T, N.C, Delta0 = Delta0, method = method)
+  obs = myorder.mat[x.T + 1, x.C + 1]
 
   P.T.vec = seq(max(0,-Delta0), min(1, 1 - Delta0), by = tol)
   pvals = rep(NA, length(P.T.vec))
@@ -187,10 +187,10 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
     P.C = P.T + Delta0
 
     if(lower==TRUE){
-      pvals[ptvar] = sum((myorder_mat>=obs) * dbinom(0:N.T, N.T, P.T) %o%dbinom(0:N.C, N.C, P.C))
+      pvals[ptvar] = sum((myorder.mat>=obs) * dbinom(0:N.T, N.T, P.T) %o%dbinom(0:N.C, N.C, P.C))
     }
     if(lower==FALSE){
-      pvals[ptvar] = sum((myorder_mat<=obs) * dbinom(0:N.T, N.T, P.T) %o%dbinom(0:N.C, N.C, P.C))
+      pvals[ptvar] = sum((myorder.mat<=obs) * dbinom(0:N.T, N.T, P.T) %o%dbinom(0:N.C, N.C, P.C))
 
     }
   }
@@ -207,16 +207,16 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimension (N.T+1)x(N.C+1)  where the (i,j) element is the exact p-value for x.T=i and x.C=j
-#' @example
-#'chan_mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
+#' @examples
+#'chan.mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
 #'#8x6 array resembling the Chan p-values based on Farrington & Manning statistic for all possible 2x2 tables arising from a sample size of 7 in the treatment group and 5 in the control group and 10% noninferiority margin.
 #' @export
 #'
-chan_mat = function(N.T, N.C, Delta0, method) {
+chan.mat = function(N.T, N.C, Delta0, method) {
   mat = array(NA, dim = c(N.T + 1, N.C + 1))
   for (i1 in 0:(N.T)) {
     for (i2 in 0:(N.C)) {
-      mat[i1 + 1, i2 + 1] = chan_pval(
+      mat[i1 + 1, i2 + 1] = chan.pval(
         x.T = i1,
         x.C = i2,
         N.T = N.T,
@@ -240,14 +240,13 @@ chan_mat = function(N.T, N.C, Delta0, method) {
 #' @param Delta  numeric between -1 and 1 representing the constraint for P.C-P.T
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @return numeric representing the value of the exact-corrected test statistic
-#' @example
-#'
+#' @examples
 #' #' #First example calculates the exact-corrected test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
 #' #group being 83/88 and 69/76 for the control with a 10% noninferiority margin.
 #' orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
 #' #Second example calculates the exact-corrected test statistic for the Fries et al. (1993) study with proportion of success in the treatment
 #' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
-#' orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
+#' orderfunEC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
 #' @export
 orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   ECval=0
@@ -255,7 +254,7 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   MR.T = rml$MR.T
   MR.C = rml$MR.C
   DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
-  pval=chan_pval(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method="MN",lower=TRUE)
+  pval=chan.pval(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method="MN",lower=TRUE)
   if(pval>1e-10 & pval<(1-1e-10)) {
     ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C,Delta0=Delta0,method="MN")-qnorm(1-pval))
   }
@@ -280,11 +279,11 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
 #' @param P.T  numeric between 0 and 1 representing the proportion of responders in the treatment group
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @return numeric representing the probability of getting the observed outcome under the null hypothesis
-#' @example
-#' likelihood_null(x.T=10, x.C=8, N.T=20, N.C=20, P.T=0.3, Delta0=0.1)
+#' @examples
+#' likelihood.null(x.T=10, x.C=8, N.T=20, N.C=20, P.T=0.3, Delta0=0.1)
 #' #The probability of getting 10/20 successes in the treatment group and 8/20 in the placebo group when the proportion of responders is 30% and the noninferiority margin is 10% can be calculated by
 #' @export
-likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
+likelihood.null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
   P.C = P.T + Delta0
   dbinom(x.T, N.T, P.T) * dbinom(x.C, N.C, P.C)
 }
@@ -299,11 +298,11 @@ likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return numeric representing the level using Chan's p-value method
-#' @example
-#' chan_level(alpha=0.05,N.T=20,N.C=15,Delta0=0.1,method="MN")
+#' @examples
+#' chan.level(alpha=0.05,N.T=20,N.C=15,Delta0=0.1,method="MN")
 #' @export
-chan_level = function(alpha, N.T, N.C, Delta0, method) {
-  mat = chan_mat(
+chan.level = function(alpha, N.T, N.C, Delta0, method) {
+  mat = chan.mat(
     N.T = N.T,
     N.C = N.C,
     Delta0 = Delta0,
@@ -315,7 +314,7 @@ chan_level = function(alpha, N.T, N.C, Delta0, method) {
   for (ptvar in 1:length(P.T.vec)) {
     tot = 0
     for (indvar in 1:dim(ind)[1]) {
-      tot = tot + likelihood_null(
+      tot = tot + likelihood.null(
         x.T = ind[indvar, 1]-1,
         x.C = ind[indvar, 2]-1,
         N.T = N.T,
@@ -358,7 +357,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     MR.T = rml$MR.T
     MR.C = rml$MR.C
     DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
-    pval=chan_pval(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,lower = TRUE)
+    pval=chan.pval(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,lower = TRUE)
     if(pval<0.999999999999999) {
       ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta0, method)-qnorm(1-pval))
     }
@@ -432,7 +431,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 #' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
-#' @example
+#' @examples
 #'chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
 #'# Chan & Zhang confidence interval for the Rodary et al. study.
 #' @export
@@ -445,8 +444,8 @@ chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
   probsL=rep(NA, length(deltaL))
   probsU=rep(NA, length(deltaL))
 
-    for (i in 1:length(deltaL)) probsL[i]=chan_pval(x.T, x.C, N.T, N.C, deltaL[i], method ="MN", lower=T)
-    for (i in 1:length(deltaU)) probsU[i]=chan_pval(x.T, x.C, N.T, N.C, deltaU[i],method = "MN", lower=F)
+    for (i in 1:length(deltaL)) probsL[i]=chan.pval(x.T, x.C, N.T, N.C, deltaL[i], method ="MN", lower=T)
+    for (i in 1:length(deltaU)) probsU[i]=chan.pval(x.T, x.C, N.T, N.C, deltaU[i],method = "MN", lower=F)
 
     if(length(deltaL[probsL>alpha/2])>0) LB=max(deltaL[probsL>alpha/2],na.rm=T)
     if(length(deltaL[probsL>alpha/2])==0) LB=1
@@ -521,7 +520,7 @@ ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, widt
     for (ptvar in 1:length(P.T.vec)) {
       tot = 0
       for (indvar in 1:dim(ind)[1]) {
-        tot = tot + likelihood_null(
+        tot = tot + likelihood.null(
           x.T = ind[indvar, 1]-1,
           x.C = ind[indvar, 2]-1,
           N.T = N.T,

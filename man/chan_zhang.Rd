@@ -29,3 +29,7 @@ list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zh
 \description{
 This function calculates the confidence interval based on Chan and Zhang (1999)
 }
+\examples{
+chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+# Chan & Zhang confidence interval for the Rodary et al. study.
+}
