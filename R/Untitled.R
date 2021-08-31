@@ -1,6 +1,6 @@
 #' Restricted MLE of Variance
 #'
-#' calculate the maximum likelihood estimator (MLE) of the variance
+#' This function calculates the maximum likelihood estimator (MLE) of the variance
 #' restricted to P.T-P.C=-Delta.
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
@@ -9,11 +9,11 @@
 #' @param N.C  positive integer representing the sample size in the control group
 #' @param Delta  numeric between -1 and 1 representing the constraint for P.C-P.T
 #' @return list of length 2 where the first element is MR.T representing the MLE for the treatment group and the second element is MR.C representing the MLE for the control group
-#' @example
-#' #calculate MLE of variance of 5/10 and 7/10 under the constraint P.T=P.C-0.2
-#' restricted.ml(5,7,10,10,0.2)
+#' @examples
+#' #calculates MLE of variance of 5/10 and 7/10 under the constraint P.T=P.C-0.2
+#' restricted_ml(x.T=5,x.C=7,N.T=10,N.C=10,Delta=0.2)
 #' @export
-restricted.ml = function(x.T, x.C, N.T, N.C, Delta) {
+restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
   R.T = x.T/N.T
   R.C = x.C/N.C
   N = N.C+N.T
@@ -51,9 +51,16 @@ restricted.ml = function(x.T, x.C, N.T, N.C, Delta) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return numeric representing the value of the test statistic
+#' @examples
+#' #First example calculates the Miettinen & Nurminen test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
+#' #group being 83/88 and 69/76 for the control with a 10% noninferiority margin.
+#' orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
+#' #Second example calculates the Farrington & Manning test statistic for the Fries et al. (1993) study with proportion of success in the treatment
+#' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
+#' orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
 #' @export
 orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
-  rml = restricted.ml(
+  rml = restricted_ml(
     x.T = x.T,
     x.C = x.C,
     N.T = N.T,
@@ -95,9 +102,6 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
     out = blackwelder.res
   }
 
-  if (method == "all") {
-    out = list("MN" = mn.res, "FM" = fm.res, "SS" = ss.res, "Blackwelder" = blackwelder.res)
-  }
   out
 }
 
@@ -112,6 +116,9 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
+#' @example
+#' order.mat(N.T=15,N.C=15,Delta0=0.3,method="MN")
+#' #16x16 array resembling the Miettinen & Nurminen test statistic for all possible 2x2 tables arising from a sample size of 15 in the treatment and control group and 30% noninferiority margin.
 #' @export
 order.mat = function(N.T, N.C, Delta0, method) {
   res = array(NA, dim = c(N.T + 1, N.C + 1))
@@ -165,6 +172,9 @@ barnard.check=function(mat){
 #' @param lower logical. TRUE for the null hypothesis P.T-P.C<=-Delta0.FALSE for the null hypothesis P.T-P.C>-Delta0
 #' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @return numeric representing Chan's exact p-value
+#' @example
+#' chan.pval(x.T=173, x.C=174, N.T=181, N.C=181, Delta0=0.05, method="MN")
+#' Chan's p-value for the Kim et al. (2013) study
 #' @export
 chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
   myorder.mat = order.mat(N.T, N.C, Delta0 = Delta0, method = method)
@@ -197,6 +207,9 @@ chan.pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimension (N.T+1)x(N.C+1)  where the (i,j) element is the exact p-value for x.T=i and x.C=j
+#' @example
+#'chan.mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
+#'#8x6 array resembling the Chan p-values based on Farrington & Manning statistic for all possible 2x2 tables arising from a sample size of 7 in the treatment group and 5 in the control group and 10% noninferiority margin.
 #' @export
 #'
 chan.mat = function(N.T, N.C, Delta0, method) {
@@ -227,10 +240,18 @@ chan.mat = function(N.T, N.C, Delta0, method) {
 #' @param Delta  numeric between -1 and 1 representing the constraint for P.C-P.T
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @return numeric representing the value of the exact-corrected test statistic
+#' @example
+#'
+#' #' #First example calculates the exact-corrected test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
+#' #group being 83/88 and 69/76 for the control with a 10% noninferiority margin.
+#' orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
+#' #Second example calculates the exact-corrected test statistic for the Fries et al. (1993) study with proportion of success in the treatment
+#' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
+#' orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
 #' @export
 orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   ECval=0
-  rml = restricted.ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
+  rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
   MR.T = rml$MR.T
   MR.C = rml$MR.C
   DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
@@ -239,7 +260,7 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
     ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C,Delta0=Delta0,method="MN")-qnorm(1-pval))
   }
 
-  rml = restricted.ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta)
+  rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta)
   MR.T = rml$MR.T
   MR.C = rml$MR.C
   DEN <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
@@ -258,7 +279,10 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
 #' @param N.C  positive integer representing the sample size in the control group
 #' @param P.T  numeric between 0 and 1 representing the proportion of responders in the treatment group
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
-#' @return numeric representing the probability of getting the observed outcomeunder the null hypothesis
+#' @return numeric representing the probability of getting the observed outcome under the null hypothesis
+#' @example
+#' likelihood.null(x.T=10, x.C=8, N.T=20, N.C=20, P.T=0.3, Delta0=0.1)
+#' #The probability of getting 10/20 successes in the treatment group and 8/20 in the placebo group when the proportion of responders is 30% and the noninferiority margin is 10% can be calculated by
 #' @export
 likelihood.null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
   P.C = P.T + Delta0
@@ -275,6 +299,8 @@ likelihood.null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return numeric representing the level using Chan's p-value method
+#' @example
+#' chan.level(alpha=0.05,N.T=20,N.C=15,Delta0=0.1,method="MN")
 #' @export
 chan.level = function(alpha, N.T, N.C, Delta0, method) {
   mat = chan.mat(
@@ -319,12 +345,16 @@ chan.level = function(alpha, N.T, N.C, Delta0, method) {
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param tol positive numeric representing the tolerance for convergence
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
+#' @examples
+#' #The following two examples demonstrate the confidence intervals for the Rodary et al. study with and without the exact-correction.
+#' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
+#' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
 #' @export
 confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
   ECval=0
   count=0
   if(EC==TRUE){
-    rml = restricted.ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
+    rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
     MR.T = rml$MR.T
     MR.C = rml$MR.C
     DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
@@ -345,7 +375,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     repeat{
       count=count+1
       Dmid=(D1+D2)/2
-      rml = restricted.ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
+      rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
       MR.T = rml$MR.T
       MR.C = rml$MR.C
       DEN <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
@@ -365,7 +395,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     repeat{
       count=count+1
       Dmid=(D1+D2)/2
-      rml = restricted.ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
+      rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
       MR.T = rml$MR.T
       MR.C = rml$MR.C
       DEN <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
@@ -385,7 +415,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     D.upper = 1
   }
 
-  list(D.lower=D.lower,D.upper=D.upper)
+  list(D.lower=D.lower,D.upper=D.upper,count=count)
 }
 
 
@@ -402,8 +432,11 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 #' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
+#' @example
+#'chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+#'# Chan & Zhang confidence interval for the Rodary et al. study.
 #' @export
-chan.zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
+chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
   d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
   d_UL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.upper
 
@@ -441,16 +474,21 @@ chan.zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
 #' @param tolCZ positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
 #' @return numeric representing the level of test based on the specified confidence interval method
+#' @examples
+#' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
+#' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
+#' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
+#' #The three examples calculate the level of the exact-corrected, Chan & Zhang and Asymptotic confidence interval based on the Miettenen and Nurminen test statistic where each group has a sample size of 10, alpha is 0.1 and the noninferiority margin is 20%.
+
 #' @export
-ci.level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, width) {
+ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, width) {
   M=matrix(0,N.T+1,N.C+1)
   for(i in 0:N.T) {
     for(j in 0:N.C) {
       if(CZ) {
-        ci = chan.zhang(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
+        ci = chan_zhang(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
         lb=ci$D.lower
         ub=ci$D.upper
-        count=ci$count
       }
       if(!CZ) {
         ci = confintZ(x.T=i,x.C=j,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,EC=EC,alpha=alpha,tol=tolEC)
