@@ -2,27 +2,35 @@
 % Please edit documentation in R/Untitled.R
 \name{orderfun}
 \alias{orderfun}
-\title{Test Statistic for Non-inferiority Hypothesis}
+\title{Delta-projected Test Statistic for Non-inferiority Hypothesis}
 \usage{
 orderfun(x.T, x.C, N.T, N.C, Delta0, method)
 }
 \arguments{
-\item{x.T}{observed number of responders in Treatment group}
+\item{x.T}{positive integer representing the observed number of responders in the treatment group}
 
-\item{x.C}{observed number of responders in Control group}
+\item{x.C}{positive integer representing the observed number of responders in the control group}
 
-\item{N.T}{sample size in Treatment group}
+\item{N.T}{positive integer representing the sample size in the treatment group}
 
-\item{N.C}{sample size in Control group}
+\item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
 
-\item{method}{method for ordering criterion}
+\item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
 \value{
-statistic value of ordering criterion
+numeric representing the value of the test statistic
 }
 \description{
 This function  calculate statistics for testing non-inferiority based on (Santner & Snell (1980), Blackwelder (1982),
 Miettinen & Nurminen (1985) and Farrington & Manning (1990))
+}
+\examples{
+#First example calculates the Miettinen & Nurminen test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
+#group being 83/88 and 69/76 for the control with a 10\% noninferiority margin.
+orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
+#Second example calculates the Farrington & Manning test statistic for the Fries et al. (1993) study with proportion of success in the treatment
+#group being 8/15 and 3/15 for the control with a 20\% noninferiority margin.
+orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
 }

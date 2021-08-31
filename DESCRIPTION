@@ -5,13 +5,11 @@ Authors@R:
     c(person(given = "Nour",
            family = "Hawila",
            role = c("aut", "cre"),
-           email = "hawilanour@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+           email = "hawilanour@gmail.com"),
            person(given = "Arthur",
            family = "Berg",
            role = c("aut"),
-           email = "statisticalberg@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID")))
+           email = "statisticalberg@gmail.com"))
 Description: Implementing non-inferiority tests with accompanying p-values and confidence intervals. Testing 
     could be done using different test statistics including an exact-corrrected method. Functions for computing
     the true levels for the

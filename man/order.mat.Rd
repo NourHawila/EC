@@ -7,17 +7,17 @@
 order.mat(N.T, N.C, Delta0, method)
 }
 \arguments{
-\item{N.T}{sample size in Treatment group}
+\item{N.T}{positive integer representing the sample size in the treatment group}
 
-\item{N.C}{sample size in Control group}
+\item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
 
-\item{method}{method for ordering criterion}
+\item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
 \value{
-(N.T+1)x(N.C+1) array where the (i,j) element is the order statistic for x.T=i and x.C=j
+array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 }
 \description{
-This function calculate order statistic for all 2x2 tables given N.T, N.C and an ordering criterion
+This function calculate the order statistics for all 2x2 tables
 }

@@ -7,18 +7,18 @@
 chan.level(alpha, N.T, N.C, Delta0, method)
 }
 \arguments{
-\item{alpha}{significance level}
+\item{alpha}{numeric between 0 and 1 representing the significance level}
 
-\item{N.T}{sample size in Treatment group}
+\item{N.T}{positive integer representing the sample size in the treatment group}
 
-\item{N.C}{sample size in Control group}
+\item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
 
-\item{method}{method for ordering criterion}
+\item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
 \value{
-True level of Chan's p-value
+numeric representing the level using Chan's p-value method
 }
 \description{
 This function calculates the level of the exact p-value based on Chan (1998)

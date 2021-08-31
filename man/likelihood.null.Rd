@@ -7,20 +7,20 @@
 likelihood.null(x.T, x.C, N.T, N.C, P.T, Delta0)
 }
 \arguments{
-\item{x.T}{observed number of responders in Treatment group}
+\item{x.T}{positive integer representing the observed number of responders in the treatment group}
 
-\item{x.C}{observed number of responders in Control group}
+\item{x.C}{positive integer representing the observed number of responders in the control group}
 
-\item{N.T}{sample size in Treatment group}
+\item{N.T}{positive integer representing the sample size in the treatment group}
 
-\item{N.C}{sample size in Control group}
+\item{N.C}{positive integer representing the sample size in the control group}
 
-\item{P.T}{proportion of responders in Treatment group}
+\item{P.T}{numeric between 0 and 1 representing the proportion of responders in the treatment group}
 
-\item{Delta0}{non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
 }
 \value{
-Exact p-value
+numeric representing the probability of getting the observed outcome under the null hypothesis
 }
 \description{
 This function evaluates the Binomial likelihood under P.T-P.C=-Delta0

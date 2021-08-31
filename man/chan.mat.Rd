@@ -7,16 +7,16 @@
 chan.mat(N.T, N.C, Delta0, method)
 }
 \arguments{
-\item{N.T}{Sample size in Treatment group}
+\item{N.T}{positive integer representing the sample size in the treatment group}
 
-\item{N.C}{Sample size in Control group}
+\item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{Non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
 
-\item{method}{method for ordering criterion}
+\item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
 \value{
-(N.T+1)x(N.C+1) array where the (i,j) element is the exact p-value for x.T=i and x.C=j
+array of dimension (N.T+1)x(N.C+1)  where the (i,j) element is the exact p-value for x.T=i and x.C=j
 }
 \description{
 This function calculates the Chan p-values for all 2x2 tables given N.T, N.C and an ordering criterion

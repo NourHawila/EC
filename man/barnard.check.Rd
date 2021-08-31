@@ -7,10 +7,10 @@
 barnard.check(mat)
 }
 \arguments{
-\item{mat}{(N.T+1)x(N.C+1) array where the (i,j) element is the order statistic for x.T=i and x.C=j}
+\item{mat}{array of dimensioins (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j}
 }
 \value{
-TRUE if Barnard's Criterion is satisfied, FALSE otherwise
+logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 }
 \description{
 This function checks whether Barnard's Criterion is verified
