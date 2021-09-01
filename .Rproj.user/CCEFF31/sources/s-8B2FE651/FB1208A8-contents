@@ -9,5 +9,24 @@ devtools::check()
 devtools::build()
 devtools::run_examples()
 devtools::install_github("NourHawila/NonInferiority", force=TRUE,auth_token = "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")
-#library(devtools)
-install_github("NourHawila/EC")
+library(devtools)
+install_github("NourHawila/EC",force=TRUE)
+
+x.T=264
+x.C=268
+N.T=328
+N.C=317
+Delta0=0.1
+method="MN"
+alpha=0.05
+
+
+
+
+confintZ(x.T,x.C,N.T,N.C,Delta0,method,EC=T,alpha)
+chan_zhang(x.T,x.C,N.T,N.C,method,alpha)
+chan_pval(x.T,x.C,N.T,N.C,Delta0,method)
+
+
+
+

@@ -7,11 +7,15 @@
 barnard_check(mat)
 }
 \arguments{
-\item{mat}{array of dimensioins (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j}
+\item{mat}{array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j}
 }
 \value{
 logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 }
 \description{
-This function checks whether Barnard's Criterion is verified
+This function checks whether Barnard's Criterion (Biometrika, 1947) is verified
+}
+\examples{
+#checks if the Barnard criterion is satisfied for the Miettenin & Nurminen ordering statistic with N.T=15, N.C=15 and Delta0=30\%
+barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 }

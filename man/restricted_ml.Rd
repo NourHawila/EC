@@ -28,3 +28,6 @@ restricted to P.T-P.C=-Delta.
 #calculates MLE of variance of 5/10 and 7/10 under the constraint P.T=P.C-0.2
 restricted_ml(x.T=5,x.C=7,N.T=10,N.C=10,Delta=0.2)
 }
+\references{
+\insertRef{Kim:13}{EC}
+}
