@@ -151,7 +151,9 @@ order_mat = function(N.T, N.C, Delta0, method) {
 #' barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 #' @export
 #' @references
+#' \insertRef{Barnard:47}{EC}
 #' \insertCite{Barnard:47}{EC}
+#' \insertCite{Chan:98;textual}{EC}
 barnard_check=function(mat){
   N.T=dim(mat)[1]-1
   N.C=dim(mat)[2]-1

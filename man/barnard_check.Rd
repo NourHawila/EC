@@ -20,5 +20,7 @@ This function checks whether Barnard's Criterion (Biometrika, 1947) is verified
 barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 }
 \references{
+\insertRef{Barnard:47}{EC}
 \insertCite{Barnard:47}{EC}
+\insertCite{Chan:98;textual}{EC}
 }
