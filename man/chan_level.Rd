@@ -23,3 +23,7 @@ numeric representing the level using Chan's p-value method
 \description{
 This function calculates the level of the exact p-value based on Chan (1998)
 }
+\examples{
+#Level of Chan's p-value method for the Fries et al. study (1993)
+chan_level(alpha=0.05,N.T=15,N.C=15,Delta0=0.2,method="MN")
+}

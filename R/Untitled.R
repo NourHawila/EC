@@ -306,7 +306,7 @@ likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return numeric representing the level using Chan's p-value method
 #' @examples
-#' Level of Chan's p-value method for the Fries et al. study (1993)
+#' #Level of Chan's p-value method for the Fries et al. study (1993)
 #' chan_level(alpha=0.05,N.T=15,N.C=15,Delta0=0.2,method="MN")
 #' @export
 chan_level = function(alpha, N.T, N.C, Delta0, method) {

@@ -3,7 +3,7 @@
     "path": "~/Documents/GitHub/EC/R/Untitled.R",
     "project_path": "R/Untitled.R",
     "type": "r_source",
-    "hash": "876657208",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1630442299979.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "443,3",
-        "scrollLine": "434"
+        "cursorPosition": "308,4",
+        "scrollLine": "300"
     },
     "folds": "",
-    "lastKnownWriteTime": 1630536523,
+    "lastKnownWriteTime": 1630537103,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1630536523621,
+    "last_content_update": 1630537103069,
     "read_only": false,
     "read_only_alternatives": []
 }
