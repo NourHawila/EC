@@ -34,7 +34,11 @@ numeric representing the level of test based on the specified confidence interva
 This function evaluates true level of decision rule based on confidence interval method
 }
 \examples{
-#The three examples calculate the level of the exact-corrected, Chan & Zhang and Asymptotic confidence interval based on the Miettenen and Nurminen test statistic where each group has a sample size of 10, alpha is 0.1 and the noninferiority margin is 20\%.
+#The three examples calculate the level of the exact-corrected,
+#Chan & Zhang and Asymptotic confidence interval based on the
+#Miettenen and Nurminen test statistic where each group has a
+#sample size of 10, alpha is 0.1 and the noninferiority margin
+#is 20\%.
 ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
 #ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
 ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)

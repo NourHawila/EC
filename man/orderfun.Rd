@@ -27,10 +27,14 @@ This function  calculate statistics for testing non-inferiority based on (Santne
 Miettinen & Nurminen (1985) and Farrington & Manning (1990))
 }
 \examples{
-#First example calculates the Miettinen & Nurminen test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
-#group being 83/88 and 69/76 for the control with a 10\% noninferiority margin.
-#Second example calculates the Farrington & Manning test statistic for the Fries et al. (1993) study with proportion of success in the treatment
-#group being 8/15 and 3/15 for the control with a 20\% noninferiority margin.
+#First example calculates the Miettinen & Nurminen test statistic
+#for the Rodary et al. (1989) study with proportion of success
+#in the treatment group being 83/88 and 69/76 for the control
+#with a 10\% noninferiority margin.
+#Second example calculates the Farrington & Manning test statistic
+#for the Fries et al. (1993) study with proportion of success
+#in the treatment group being 8/15 and 3/15 for the control
+#with a 20\% noninferiority margin.
 orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
 orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
 }

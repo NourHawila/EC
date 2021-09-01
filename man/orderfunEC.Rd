@@ -26,9 +26,12 @@ numeric representing the value of the exact-corrected test statistic
 This function calculates the Exact-Corrected test statistic
 }
 \examples{
-#First example calculates the exact-corrected test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
-#group being 83/88 and 69/76 for the control with a 10\% noninferiority margin.
-#Second example calculates the exact-corrected test statistic for the Fries et al. (1993) study with proportion of success in the treatment
+#First example calculates the exact-corrected test statistic for
+#the Rodary et al. (1989) study with proportion of success in the treatment
+#group being 83/88 and 69/76 for the control with a 10\%
+#noninferiority margin.
+#Second example calculates the exact-corrected test statistic for
+#the Fries et al. (1993) study with proportion of success in the treatment
 #group being 8/15 and 3/15 for the control with a 20\% noninferiority margin.
 orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
 orderfunEC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)

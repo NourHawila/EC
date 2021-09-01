@@ -33,7 +33,8 @@ This function computes the confidence interval limits given an ordering criterio
 without the exact-correction
 }
 \examples{
-#These two examples demonstrate the confidence intervals for the Rodary et al. study with and without the exact-correction.
+#These two examples demonstrate the confidence intervals for the
+#Rodary et al. study with and without the exact-correction.
 confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
 confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
 }

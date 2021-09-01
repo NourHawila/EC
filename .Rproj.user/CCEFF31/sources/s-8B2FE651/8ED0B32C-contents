@@ -54,10 +54,14 @@ restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return numeric representing the value of the test statistic
 #' @examples
-#' #First example calculates the Miettinen & Nurminen test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
-#' #group being 83/88 and 69/76 for the control with a 10% noninferiority margin.
-#' #Second example calculates the Farrington & Manning test statistic for the Fries et al. (1993) study with proportion of success in the treatment
-#' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
+#' #First example calculates the Miettinen & Nurminen test statistic
+#' #for the Rodary et al. (1989) study with proportion of success
+#' #in the treatment group being 83/88 and 69/76 for the control
+#' #with a 10% noninferiority margin.
+#' #Second example calculates the Farrington & Manning test statistic
+#' #for the Fries et al. (1993) study with proportion of success
+#' #in the treatment group being 8/15 and 3/15 for the control
+#' #with a 20% noninferiority margin.
 #' orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
 #' orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
 #' @export
@@ -119,7 +123,9 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @examples
-#' #16x16 array of the theSantner & Snell test statistic for all possible 2x2 tables arising from a sample size of 15 in the treatment and control group and 30% noninferiority margin.
+#' #16x16 array of the theSantner & Snell test statistic for all
+#' #possible 2x2 tables arising from a sample size of 15 in the
+#' #treatment and control group and 30% noninferiority margin.
 #' order_mat(N.T=15,N.C=15,Delta0=0.3,method="SS")
 #' @export
 order_mat = function(N.T, N.C, Delta0, method) {
@@ -147,7 +153,9 @@ order_mat = function(N.T, N.C, Delta0, method) {
 #' @param mat array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @return logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 #' @examples
-#' #checks if the Barnard criterion is satisfied for the Miettenin & Nurminen ordering statistic with N.T=15, N.C=15 and Delta0=30%
+#' #checks if the Barnard criterion is satisfied for the
+#' # Miettenin & Nurminen ordering statistic with N.T=15,
+#' #N.C=15 and Delta0=30%
 #' barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 #' @export
 #' @references
@@ -218,7 +226,10 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimension (N.T+1)x(N.C+1)  where the (i,j) element is the exact p-value for x.T=i and x.C=j
 #' @examples
-#'#8x6 array of the the Chan p-values based on Farrington & Manning statistic for all possible 2x2 tables arising from a sample size of 7 in the treatment group and 5 in the control group and 10% noninferiority margin.
+#'#8x6 array of the the Chan p-values based on Farrington & Manning
+#'#statistic for all possible 2x2 tables arising from a sample size
+#'# of 7 in the treatment group and 5 in the control group and 10%
+#'#noninferiority margin.
 #'chan_mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
 #' @export
 chan_mat = function(N.T, N.C, Delta0, method) {
@@ -250,9 +261,12 @@ chan_mat = function(N.T, N.C, Delta0, method) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @return numeric representing the value of the exact-corrected test statistic
 #' @examples
-#' #First example calculates the exact-corrected test statistic for the Rodary et al. (1989) study with proportion of success in the treatment
-#' #group being 83/88 and 69/76 for the control with a 10% noninferiority margin.
-#' #Second example calculates the exact-corrected test statistic for the Fries et al. (1993) study with proportion of success in the treatment
+#' #First example calculates the exact-corrected test statistic for
+#' #the Rodary et al. (1989) study with proportion of success in the treatment
+#' #group being 83/88 and 69/76 for the control with a 10%
+#' #noninferiority margin.
+#' #Second example calculates the exact-corrected test statistic for
+#' #the Fries et al. (1993) study with proportion of success in the treatment
 #' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
 #' orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
 #' orderfunEC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
@@ -289,7 +303,9 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
 #' @return numeric representing the probability of getting the observed outcome under the null hypothesis
 #' @examples
-#' #The probability of getting 10/20 successes in the treatment group and 8/20 in the placebo group when the proportion of responders is 30% and the noninferiority margin is 10% can be calculated by
+#' #The probability of getting 10/20 successes in the treatment group
+#' #and 8/20 in the placebo group when the proportion of responders
+#' #is 30% and the noninferiority margin is 10% can be calculated by
 #' likelihood_null(x.T=10, x.C=8, N.T=20, N.C=20, P.T=0.3, Delta0=0.1)
 #' @export
 likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
@@ -355,7 +371,8 @@ chan_level = function(alpha, N.T, N.C, Delta0, method) {
 #' @param tol positive numeric representing the tolerance for convergence
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
 #' @examples
-#' #These two examples demonstrate the confidence intervals for the Rodary et al. study with and without the exact-correction.
+#' #These two examples demonstrate the confidence intervals for the
+#' #Rodary et al. study with and without the exact-correction.
 #' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
 #' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
 #' @export
@@ -484,7 +501,11 @@ chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
 #' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
 #' @return numeric representing the level of test based on the specified confidence interval method
 #' @examples
-#' #The three examples calculate the level of the exact-corrected, Chan & Zhang and Asymptotic confidence interval based on the Miettenen and Nurminen test statistic where each group has a sample size of 10, alpha is 0.1 and the noninferiority margin is 20%.
+#' #The three examples calculate the level of the exact-corrected,
+#' #Chan & Zhang and Asymptotic confidence interval based on the
+#' #Miettenen and Nurminen test statistic where each group has a
+#' #sample size of 10, alpha is 0.1 and the noninferiority margin
+#' #is 20%.
 #' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
 #' #ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
 #' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)

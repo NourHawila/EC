@@ -22,6 +22,8 @@ array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statist
 This function calculate the order statistics for all 2x2 tables
 }
 \examples{
-#16x16 array of the theSantner & Snell test statistic for all possible 2x2 tables arising from a sample size of 15 in the treatment and control group and 30\% noninferiority margin.
+#16x16 array of the theSantner & Snell test statistic for all
+#possible 2x2 tables arising from a sample size of 15 in the
+#treatment and control group and 30\% noninferiority margin.
 order_mat(N.T=15,N.C=15,Delta0=0.3,method="SS")
 }
