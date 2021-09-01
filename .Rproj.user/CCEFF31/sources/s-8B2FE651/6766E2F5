@@ -1,26 +1,26 @@
 {
-    "id": "998274B7",
-    "path": "~/Documents/GitHub/EC/NAMESPACE",
-    "project_path": "NAMESPACE",
-    "type": "r_namespace",
+    "id": "6766E2F5",
+    "path": "~/Documents/GitHub/EC/DESCRIPTION",
+    "project_path": "DESCRIPTION",
+    "type": "dcf",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1630518077673.0,
+    "created": 1630536364380.0,
     "source_on_save": false,
     "relative_order": 4,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "13,21",
-        "scrollLine": "0"
+        "cursorPosition": "22,16",
+        "scrollLine": "5"
     },
     "folds": "",
-    "lastKnownWriteTime": 1630519109,
+    "lastKnownWriteTime": 1630518017,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1630519109,
+    "last_content_update": 1630518017,
     "read_only": false,
     "read_only_alternatives": []
 }

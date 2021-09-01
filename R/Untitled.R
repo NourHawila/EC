@@ -119,7 +119,7 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @examples
-#' #16x16 array of the the Santner & Snell test statistic for all possible 2x2 tables arising from a sample size of 15 in the treatment and control group and 30% noninferiority margin.
+#' #16x16 array of the theSantner & Snell test statistic for all possible 2x2 tables arising from a sample size of 15 in the treatment and control group and 30% noninferiority margin.
 #' order_mat(N.T=15,N.C=15,Delta0=0.3,method="SS")
 #' @export
 order_mat = function(N.T, N.C, Delta0, method) {
@@ -151,7 +151,7 @@ order_mat = function(N.T, N.C, Delta0, method) {
 #' barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 #' @export
 #' @references
-#' \insertRef{Barnard:47}{EC}
+#' \insertCite{Barnard:47}{EC}
 barnard_check=function(mat){
   N.T=dim(mat)[1]-1
   N.C=dim(mat)[2]-1
@@ -441,7 +441,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
 #' @examples
 #'# Chan & Zhang confidence interval for the Rodary et al. study. (1989)
-#'chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+#'#chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
 #' @export
 chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
   d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
@@ -484,7 +484,7 @@ chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
 #' @examples
 #' #The three examples calculate the level of the exact-corrected, Chan & Zhang and Asymptotic confidence interval based on the Miettenen and Nurminen test statistic where each group has a sample size of 10, alpha is 0.1 and the noninferiority margin is 20%.
 #' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
-#' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
+#' #ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
 #' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
 #' @export
 ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, width) {

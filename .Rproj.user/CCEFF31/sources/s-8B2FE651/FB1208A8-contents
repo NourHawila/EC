@@ -3,7 +3,7 @@
 
 devtools::document()
 devtools::load_all()
-use_mit_license("Nour Hawila")
+#use_mit_license("Nour Hawila")
 #devtools::install_github("NourHawila/NonInferiority/myfirstpackage")
 devtools::check()
 devtools::build()

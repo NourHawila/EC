@@ -31,5 +31,5 @@ This function calculates the confidence interval based on Chan and Zhang (1999)
 }
 \examples{
 # Chan & Zhang confidence interval for the Rodary et al. study. (1989)
-chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+#chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
 }

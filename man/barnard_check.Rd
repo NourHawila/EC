@@ -19,3 +19,6 @@ This function checks whether Barnard's Criterion (Biometrika, 1947) is verified
 #checks if the Barnard criterion is satisfied for the Miettenin & Nurminen ordering statistic with N.T=15, N.C=15 and Delta0=30\%
 barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 }
+\references{
+\insertCite{Barnard:47}{EC}
+}
