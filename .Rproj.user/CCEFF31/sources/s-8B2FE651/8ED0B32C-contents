@@ -153,7 +153,7 @@ order_mat = function(N.T, N.C, Delta0, method) {
 #' @param mat array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @return logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 #' @examples
-#' #checks if the Barnard criterion is satisfied for the
+#' #checks if the Barnard criterion is satisfied \insertRef{Barnard:47}{EC} for the
 #' # Miettenin & Nurminen ordering statistic with N.T=15,
 #' #N.C=15 and Delta0=30%
 #' barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))

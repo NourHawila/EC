@@ -1,0 +1,16 @@
+library(EC)
+library(ggplot2)
+library(dplyr)
+n.T=308
+n.C=157
+x.T=45
+x.C=19
+delta0=0.06
+chan.pval(x.C,x.T,n.C,n.T,delta0,"MN")
+
+Z=orderfun(x.C,x.T,n.C,n.T,delta0,"FM")
+1-pnorm(Z)
+
+library(devtools)
+install_github("nourhawila/EC")
+library(EC)
