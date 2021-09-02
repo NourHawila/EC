@@ -1,6 +1,6 @@
 Package: EC
 Title: Implemention of the Exact-Corrected Non-inferiority Test
-Version: 2.0
+Version: 2.1
 Authors@R: 
     c(person(given = "Nour",
            family = "Hawila",
@@ -22,7 +22,7 @@ RoxygenNote: 7.1.1
 Imports: Rdpack
 RdMacros: Rdpack
 NeedsCompilation: no
-Packaged: 2021-09-02 17:20:28 UTC; nourhawila
+Packaged: 2021-09-02 20:24:18 UTC; nourhawila
 Author: Nour Hawila [aut, cre],
   Arthur Berg [aut]
 Maintainer: Nour Hawila <hawilanour@gmail.com>
