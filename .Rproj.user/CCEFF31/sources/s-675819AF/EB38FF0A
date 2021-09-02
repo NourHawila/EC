@@ -1,26 +1,26 @@
 {
-    "id": "AB9E5BE2",
-    "path": "~/Documents/GitHub/EC/NAMESPACE",
-    "project_path": "NAMESPACE",
-    "type": "r_namespace",
+    "id": "EB38FF0A",
+    "path": "~/Documents/GitHub/EC/inst/REFERENCES.bib",
+    "project_path": "inst/REFERENCES.bib",
+    "type": "text",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1630603062541.0,
+    "created": 1630615365480.0,
     "source_on_save": false,
     "relative_order": 5,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "2,0",
-        "scrollLine": "0"
+        "cursorPosition": "8,0",
+        "scrollLine": "5"
     },
     "folds": "",
-    "lastKnownWriteTime": 1630615050,
+    "lastKnownWriteTime": 1630601328,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1630615050,
+    "last_content_update": 1630601328,
     "read_only": false,
     "read_only_alternatives": []
 }
