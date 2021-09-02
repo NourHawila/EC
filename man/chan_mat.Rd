@@ -24,7 +24,10 @@ This function calculates the Chan p-values for all 2x2 tables given N.T, N.C and
 \examples{
 #8x6 array of the the Chan p-values based on Farrington & Manning
 #statistic for all possible 2x2 tables arising from a sample size
-# of 7 in the treatment group and 5 in the control group and 10\%
+#of 7 in the treatment group and 5 in the control group and 10\%
 #noninferiority margin.
 chan_mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
+}
+\references{
+\insertRef{Chan:98}{EC}
 }

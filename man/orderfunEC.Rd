@@ -36,3 +36,6 @@ This function calculates the Exact-Corrected test statistic
 orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
 orderfunEC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
 }
+\references{
+\insertRef{Hawila:21}{EC}
+}

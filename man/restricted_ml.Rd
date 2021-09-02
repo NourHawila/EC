@@ -29,5 +29,5 @@ restricted to P.T-P.C=-Delta.
 restricted_ml(x.T=5,x.C=7,N.T=10,N.C=10,Delta=0.2)
 }
 \references{
-\insertRef{Kim:13}{EC}
+\insertRef{Miettinen:85}{EC}
 }

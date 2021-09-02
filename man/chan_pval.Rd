@@ -33,3 +33,6 @@ This function calculates the exact p-value based on Chan (1998)
 #This example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
 chan_pval(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
 }
+\references{
+\insertRef{Chan:98}{EC}
+}

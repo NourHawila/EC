@@ -13,16 +13,14 @@ barnard_check(mat)
 logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 }
 \description{
-This function checks whether Barnard's Criterion (Biometrika, 1947) is verified
+This function checks whether Barnard's Criterion (Biometrika, 1947) is satisfied
 }
 \examples{
-#checks if the Barnard criterion is satisfied \insertRef{Barnard:47}{EC} for the
-# Miettenin & Nurminen ordering statistic with N.T=15,
+#Checks if the Barnard criterion is satisfied for the
+#Miettenin & Nurminen ordering statistic with N.T=15,
 #N.C=15 and Delta0=30\%
 barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 }
 \references{
 \insertRef{Barnard:47}{EC}
-\insertCite{Barnard:47}{EC}
-\insertCite{Chan:98;textual}{EC}
 }

@@ -43,3 +43,8 @@ ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FA
 #ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
 ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
 }
+\references{
+\insertRef{Hawila:21}{EC}
+\insertRef{Chan:99}{EC}
+\insertRef{Miettinen:85}{EC}
+}

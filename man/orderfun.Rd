@@ -23,8 +23,8 @@ orderfun(x.T, x.C, N.T, N.C, Delta0, method)
 numeric representing the value of the test statistic
 }
 \description{
-This function  calculate statistics for testing non-inferiority based on (Santner & Snell (1980), Blackwelder (1982),
-Miettinen & Nurminen (1985) and Farrington & Manning (1990))
+This function  calculate statistics for testing non-inferiority based on Santner & Snell (1980), Blackwelder (1982),
+Miettinen & Nurminen (1985) and Farrington & Manning (1990)
 }
 \examples{
 #First example calculates the Miettinen & Nurminen test statistic
@@ -37,4 +37,13 @@ Miettinen & Nurminen (1985) and Farrington & Manning (1990))
 #with a 20\% noninferiority margin.
 orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
 orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
+}
+\references{
+\insertRef{Santner:80}{EC}
+
+\insertRef{Blackwelder:82}{EC}
+
+\insertRef{Miettinen:85}{EC}
+
+\insertRef{Farrington:90}{EC}
 }

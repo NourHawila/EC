@@ -13,7 +13,7 @@
 #' #calculates MLE of variance of 5/10 and 7/10 under the constraint P.T=P.C-0.2
 #' restricted_ml(x.T=5,x.C=7,N.T=10,N.C=10,Delta=0.2)
 #' @references
-#' \insertRef{Kim:13}{EC}
+#' \insertRef{Miettinen:85}{EC}
 #' @export
 restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
   R.T = x.T/N.T
@@ -43,8 +43,8 @@ restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
 
 #' Delta-projected Test Statistic for Non-inferiority Hypothesis
 #'
-#' This function  calculate statistics for testing non-inferiority based on (Santner & Snell (1980), Blackwelder (1982),
-#' Miettinen & Nurminen (1985) and Farrington & Manning (1990))
+#' This function  calculate statistics for testing non-inferiority based on Santner & Snell (1980), Blackwelder (1982),
+#' Miettinen & Nurminen (1985) and Farrington & Manning (1990)
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -64,6 +64,14 @@ restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
 #' #with a 20% noninferiority margin.
 #' orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
 #' orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
+#' @references
+#' \insertRef{Santner:80}{EC}
+#'
+#' \insertRef{Blackwelder:82}{EC}
+#'
+#' \insertRef{Miettinen:85}{EC}
+#'
+#' \insertRef{Farrington:90}{EC}
 #' @export
 orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
   rml = restricted_ml(
@@ -123,10 +131,12 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 #' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
 #' @return array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @examples
-#' #16x16 array of the theSantner & Snell test statistic for all
+#' #16x16 array of the the Santner & Snell test statistic for all
 #' #possible 2x2 tables arising from a sample size of 15 in the
 #' #treatment and control group and 30% noninferiority margin.
 #' order_mat(N.T=15,N.C=15,Delta0=0.3,method="SS")
+#' @references
+#' \insertRef{Santner:80}{EC}
 #' @export
 order_mat = function(N.T, N.C, Delta0, method) {
   res = array(NA, dim = c(N.T + 1, N.C + 1))
@@ -148,20 +158,18 @@ order_mat = function(N.T, N.C, Delta0, method) {
 
 #' Verifying Barnard's Criterion
 #'
-#' This function checks whether Barnard's Criterion (Biometrika, 1947) is verified
+#' This function checks whether Barnard's Criterion (Biometrika, 1947) is satisfied
 #'
 #' @param mat array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
 #' @return logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
 #' @examples
-#' #checks if the Barnard criterion is satisfied for the
-#' # Miettenin & Nurminen ordering statistic with N.T=15,
+#' #Checks if the Barnard criterion is satisfied for the
+#' #Miettenin & Nurminen ordering statistic with N.T=15,
 #' #N.C=15 and Delta0=30%
 #' barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
 #' @export
 #' @references
 #' \insertRef{Barnard:47}{EC}
-#' \insertCite{Barnard:47}{EC}
-#' \insertCite{Chan:98;textual}{EC}
 barnard_check=function(mat){
   N.T=dim(mat)[1]-1
   N.C=dim(mat)[2]-1
@@ -193,6 +201,8 @@ barnard_check=function(mat){
 #' @examples
 #' #This example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
 #' chan_pval(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
+#' @references
+#' \insertRef{Chan:98}{EC}
 #' @export
 chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
   myorder_mat = order_mat(N.T, N.C, Delta0 = Delta0, method = method)
@@ -228,9 +238,11 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #' @examples
 #'#8x6 array of the the Chan p-values based on Farrington & Manning
 #'#statistic for all possible 2x2 tables arising from a sample size
-#'# of 7 in the treatment group and 5 in the control group and 10%
+#'#of 7 in the treatment group and 5 in the control group and 10%
 #'#noninferiority margin.
 #'chan_mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
+#'@references
+#' \insertRef{Chan:98}{EC}
 #' @export
 chan_mat = function(N.T, N.C, Delta0, method) {
   mat = array(NA, dim = c(N.T + 1, N.C + 1))
@@ -270,6 +282,8 @@ chan_mat = function(N.T, N.C, Delta0, method) {
 #' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
 #' orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
 #' orderfunEC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
+#' @references
+#' \insertRef{Hawila:21}{EC}
 #' @export
 orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   ECval=0
@@ -326,6 +340,8 @@ likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
 #' @examples
 #' #Level of Chan's p-value method for the Fries et al. study (1993)
 #' chan_level(alpha=0.05,N.T=15,N.C=15,Delta0=0.2,method="MN")
+#' @references
+#' \insertRef{Chan:03}{EC}
 #' @export
 chan_level = function(alpha, N.T, N.C, Delta0, method) {
   mat = chan_mat(
@@ -375,6 +391,12 @@ chan_level = function(alpha, N.T, N.C, Delta0, method) {
 #' #Rodary et al. study with and without the exact-correction.
 #' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
 #' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#'
+#' \insertRef{Miettinen:85}{EC}
+#'
+#' \insertRef{Farrington:90}{EC}
 #' @export
 confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10) {
   ECval=0
@@ -459,8 +481,10 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 #' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
 #' @examples
-#'# Chan & Zhang confidence interval for the Rodary et al. study. (1989)
+#'#Chan & Zhang confidence interval for the Rodary et al. study. (1989)
 #'#chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+#'@references
+#' \insertRef{Chan:99}{EC}
 #' @export
 chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
   d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
@@ -509,6 +533,11 @@ chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
 #' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
 #' #ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
 #' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#' \insertRef{Chan:99}{EC}
+#' \insertRef{Miettinen:85}{EC}
+
 #' @export
 ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, width) {
   M=matrix(0,N.T+1,N.C+1)

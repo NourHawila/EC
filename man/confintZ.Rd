@@ -38,3 +38,10 @@ without the exact-correction
 confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
 confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
 }
+\references{
+\insertRef{Hawila:21}{EC}
+
+\insertRef{Miettinen:85}{EC}
+
+\insertRef{Farrington:90}{EC}
+}
