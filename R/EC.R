@@ -248,7 +248,7 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #' \insertRef{Hawila:21}{EC}
 #' @export
 cz_pval <- function(x.T, x.C, N.T, N.C, Delta0, method,tol=1e-3){
-  deltas=seq(-0.999,-Delta0,by=tol)
+  deltas=seq(-0.999,-Delta0,length=1/tol)
   res=array(dim=length(deltas))
   for(d in 1:length(deltas)){
     res[d] = chan_pval(x.T,x.C,N.T,N.C,-deltas[d],method)
