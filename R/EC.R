@@ -199,8 +199,10 @@ barnard_check=function(mat){
 #' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @return numeric representing Chan's exact p-value
 #' @examples
-#' #This example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
+#' #The first example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
+#' #The second example is taken from Hawila (2021)
 #' chan_pval(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
+#' chan_pval(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
 #' @references
 #' \insertRef{Chan:98}{EC}
 #' @export
@@ -224,6 +226,34 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
   }
   max(pvals)
 
+}
+
+
+#' CZ p-value
+#'
+#' This function computes the Chan & Zhang p-value given in Hawila (2021)
+#'
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @param tol positive numeric representing the tolerance for calculation
+#' @return numeric representing the Chan & Zhang p-value
+#' @examples
+#' #This example is taken from Hawila (2021)
+#' cz_pval(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#' @export
+cz_pval <- function(x.T, x.C, N.T, N.C, Delta0, method,tol=1e-3){
+  deltas=seq(-0.999,-Delta0,by=tol)
+  res=array(dim=length(deltas))
+  for(d in 1:length(deltas)){
+    res[d] = chan_pval(x.T,x.C,N.T,N.C,-deltas[d],method)
+  }
+  max(res)
 }
 
 #' Chan p-value for All 2x2 Tables
