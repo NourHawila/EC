@@ -224,7 +224,7 @@ pval_Wald <- function(x.T, x.C, N.T, N.C, delta0) {
   p.T = x.T/N.T
   p.C = x.C/N.C
   se = sqrt(p.T*(1-p.T)/N.T + p.C*(1-p.C)/N.C)
-  z = (p.T-p.C-delta0)/se
+  z = (p.T-p.C+delta0)/se
   1-pnorm(z)
 }
 
