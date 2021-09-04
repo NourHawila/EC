@@ -775,6 +775,33 @@ size_EC <- function(alpha, N.T, N.C, delta0,tolEC=1e-4){
 size_general(alpha, N.T, N.C, delta0, method="MN", EC=T, tolEC=tolEC,CZ=F)
 }
 
+
+
+#' Maximal size of the Chan & Zhang (1999) confidence interval
+#'
+#' This function evaluates maximum size of the decision rule based on Chan & Zhang's confidence interval
+#'
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param delta0  numeric between 0 and 1 representing the noninferiority margin
+#' @param tolCZ positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
+#' @param eps positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
+#' @return numeric representing the level of test based on the specified confidence interval method
+#' @examples
+#' #The three examples calculate the level of the exact-corrected,
+#' #Chan & Zhang and Asymptotic confidence interval based on the
+#' #Miettenen and Nurminen test statistic where each group has a
+#' #sample size of 10, alpha is 0.1 and the noninferiority margin
+#' #is 20%.
+#' size_CZ(alpha=0.1,N.T=10,N.C=10,delta0=0.2,tolCZ=1e-3)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#' @export
+size_CZ <- function(alpha, N.T, N.C, delta0,tolCZ=1e-3, eps=1e-3){
+  size_general(alpha, N.T, N.C, delta0, method="MN", EC=F, tolCZ=tolCZ,CZ=T,eps=eps)
+}
+
 #' Maximal size of the Miettinen & Nurminen (1985) confidence interval
 #'
 #' This function evaluates maximum size of the decision rule based on the Miettinen & Nurminen confidence interval
@@ -806,18 +833,19 @@ size_MN <- function(alpha, N.T, N.C, delta0,tolEC=1e-4){
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param N.T  positive integer representing the sample size in the treatment group
 #' @param N.C  positive integer representing the sample size in the control group
+#' @param delta0  numeric between 0 and 1 representing the noninferiority margin
 #' @return numeric representing the level of test based on the specified confidence interval method
 #' @examples
 #' #The example calculates the size of the confidence interval based on the
 #' #Wald's method where each group has a
 #' #sample size of 10, alpha is 0.1 and the noninferiority margin
 #' #is 20%.
-#' size_Wald(alpha=0.1,N.T=10,N.C=10)
+#' size_Wald(alpha=0.1,N.T=10,N.C=10,delta0=0.1)
 #' @references
 #' \insertRef{Hawila:21}{EC}
 #' @export
-size_Wald <- function(alpha, N.T, N.C){
-  size_general(alpha, N.T, N.C, method="Wald",EC=F,CZ=F,delta0=0)
+size_Wald <- function(alpha, N.T, N.C,delta0){
+  size_general(alpha, N.T, N.C, method="Wald",EC=F,CZ=F,delta0=delta0)
 }
 
 

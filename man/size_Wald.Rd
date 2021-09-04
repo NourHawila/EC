@@ -4,7 +4,7 @@
 \alias{size_Wald}
 \title{Maximal size of the Wald confidence interval}
 \usage{
-size_Wald(alpha, N.T, N.C)
+size_Wald(alpha, N.T, N.C, delta0)
 }
 \arguments{
 \item{alpha}{numeric between 0 and 1 representing the significance level}
@@ -12,6 +12,8 @@ size_Wald(alpha, N.T, N.C)
 \item{N.T}{positive integer representing the sample size in the treatment group}
 
 \item{N.C}{positive integer representing the sample size in the control group}
+
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 }
 \value{
 numeric representing the level of test based on the specified confidence interval method
@@ -24,7 +26,7 @@ This function evaluates maximum size of the decision rule based on the Wald conf
 #Wald's method where each group has a
 #sample size of 10, alpha is 0.1 and the noninferiority margin
 #is 20\%.
-size_Wald(alpha=0.1,N.T=10,N.C=10)
+size_Wald(alpha=0.1,N.T=10,N.C=10,delta0=0.1)
 }
 \references{
 \insertRef{Hawila:21}{EC}
