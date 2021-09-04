@@ -4,7 +4,7 @@
 \alias{pval_Chan}
 \title{Exact p-value of Chan (1998)}
 \usage{
-pval_Chan(x.T, x.C, N.T, N.C, delta0, method, lower = TRUE, tol = 0.001)
+pval_Chan(x.T, x.C, N.T, N.C, delta0, method = "MN", lower = TRUE, tol = 0.001)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}

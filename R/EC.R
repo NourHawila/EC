@@ -185,6 +185,49 @@ Barnard_check=function(mat){
   if(out==0) return(FALSE)
 }
 
+#' p-value corresponding to the Miettinen & Nurminen (1985) confidence interval
+#'
+#' This function calculates the asymptotic p-value described in Hawila & Berg (2021)
+#'
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param delta0  numeric between 0 and 1 representing the noninferiority margin
+#' @return numeric representing the asymptotic p-value associated with the Miettinen & Nurminen statistic
+#' @examples
+#' #The example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
+#' pval_MN(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1)
+#' @references
+#' \insertRef{Miettinen:85}{EC}
+#' \insertRef{Hawila:21}{EC}
+#' @export
+pval_MN <- function(x.T, x.C, N.T, N.C, delta0) {
+  1-qnorm(stat_general(x.T, x.C, N.T, N.C, delta0,method="MN"))
+}
+
+#' p-value corresponding to the Wald confidence interval
+#'
+#' This function calculates the Wald p-value
+#'
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param delta0  numeric between 0 and 1 representing the noninferiority margin
+#' @return numeric representing the asymptotic p-value associated with the Miettinen & Nurminen statistic
+#' @examples
+#' #The example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
+#' pval_MN(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1)
+#' @export
+pval_Wald <- function(x.T, x.C, N.T, N.C, delta0) {
+  p.T = x.T/N.T
+  p.C = x.C/N.C
+  se = sqrt(p.T*(1-p.T)/N.T + p.C*(1-p.C)/N.C)
+  z = (p.T-p.C)/se
+  1-qnorm(z)
+}
+
 #' Exact p-value of Chan (1998)
 #'
 #' This function calculates the exact p-value based on Chan (1998)
@@ -206,7 +249,7 @@ Barnard_check=function(mat){
 #' @references
 #' \insertRef{Chan:98}{EC}
 #' @export
-pval_Chan <- function(x.T, x.C, N.T, N.C, delta0, method, lower = TRUE,tol=1e-3) {
+pval_Chan <- function(x.T, x.C, N.T, N.C, delta0, method="MN", lower = TRUE,tol=1e-3) {
   myorder_mat = order_mat(N.T, N.C, delta0 = delta0, method = method)
   obs = myorder_mat[x.T + 1, x.C + 1]
 
@@ -229,7 +272,7 @@ pval_Chan <- function(x.T, x.C, N.T, N.C, delta0, method, lower = TRUE,tol=1e-3)
 }
 
 
-#' Chan & Zhang p-value as described in Hawila & Berg (2021)
+#' p-value corresponding to the Chan & Zhang confidence interval as described in Hawila & Berg (2021)
 #'
 #' This function computes the Chan & Zhang p-value given in Hawila & Berg (2021)
 #'
@@ -776,6 +819,7 @@ size_MN <- function(alpha, N.T, N.C, delta0,tolEC=1e-4){
 size_Wald <- function(alpha, N.T, N.C){
   size_general(alpha, N.T, N.C, method="Wald",EC=F,CZ=F,delta0=0)
 }
+
 
 
 #' @importFrom Rdpack reprompt
