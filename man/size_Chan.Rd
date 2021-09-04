@@ -4,7 +4,7 @@
 \alias{size_Chan}
 \title{Maximal size of Chan's exact p-value}
 \usage{
-size_Chan(alpha, N.T, N.C, Delta0, method)
+size_Chan(alpha, N.T, N.C, delta0, method = "MN")
 }
 \arguments{
 \item{alpha}{numeric between 0 and 1 representing the significance level}
@@ -13,7 +13,7 @@ size_Chan(alpha, N.T, N.C, Delta0, method)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
@@ -25,7 +25,7 @@ This function calculates the maximal size of Chan's (1998) exact p-value; see Ha
 }
 \examples{
 #Level of Chan's p-value method for the Fries et al. study (1993)
-size_Chan(alpha=0.05,N.T=15,N.C=15,Delta0=0.2,method="MN")
+size_Chan(alpha=0.05,N.T=15,N.C=15,delta0=0.2,method="MN")
 }
 \references{
 \insertRef{Hawila:21}{EC}

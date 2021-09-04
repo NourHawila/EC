@@ -8,13 +8,13 @@ size_general(
   alpha,
   N.T,
   N.C,
-  Delta0,
-  method,
+  delta0,
+  method = "MN",
   EC,
   tolEC = 1e-06,
   CZ,
   tolCZ = 0.001,
-  width = 0.3
+  eps = 0.3
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ size_general(
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 
@@ -36,7 +36,7 @@ size_general(
 
 \item{tolCZ}{positive numeric representing the increment size for domain of Delta. Default is set to 0.001.}
 
-\item{width}{positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.}
+\item{eps}{positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.}
 }
 \value{
 numeric representing the level of test based on the specified confidence interval method
@@ -50,9 +50,9 @@ This function evaluates maximum size of the decision rule based on a given confi
 #Miettenen and Nurminen test statistic where each group has a
 #sample size of 10, alpha is 0.1 and the noninferiority margin
 #is 20\%.
-size_general(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
-#size_general(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
-size_general(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
+size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,eps=1e-3)
+#size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,eps=1e-3)
+size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,eps=1e-3)
 }
 \references{
 \insertRef{Hawila:21}{EC}

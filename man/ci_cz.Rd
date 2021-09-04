@@ -4,7 +4,7 @@
 \alias{ci_CZ}
 \title{Confidence interval using Chan & Zhang (1999) methodology}
 \usage{
-ci_CZ(x.T, x.C, N.T, N.C, method, alpha = 0.05, tol = 0.001, width = 0.3)
+ci_CZ(x.T, x.C, N.T, N.C, method = "MN", alpha = 0.05, tol = 0.001, eps = 0.3)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -21,7 +21,7 @@ ci_CZ(x.T, x.C, N.T, N.C, method, alpha = 0.05, tol = 0.001, width = 0.3)
 
 \item{tol}{positive numeric representing the increment size for domain of Delta. Default is set to 0.001.}
 
-\item{width}{positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.}
+\item{eps}{positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.}
 }
 \value{
 list of length 2 (ci.lower, ci.upper) representing the lower and upper Chan and Zhang confidence limits

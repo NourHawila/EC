@@ -4,7 +4,7 @@
 \alias{size_MN}
 \title{Maximal size of the Miettinen & Nurminen (1985) confidence interval}
 \usage{
-size_MN(alpha, N.T, N.C, Delta0, tolEC = 1e-04)
+size_MN(alpha, N.T, N.C, delta0, tolEC = 1e-04)
 }
 \arguments{
 \item{alpha}{numeric between 0 and 1 representing the significance level}
@@ -13,7 +13,7 @@ size_MN(alpha, N.T, N.C, Delta0, tolEC = 1e-04)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{tolEC}{positive numeric representing the tolerance for confidence interval convergence}
 }
@@ -28,7 +28,7 @@ This function evaluates maximum size of the decision rule based on the Miettinen
 #Miettenen and Nurminen test statistic where each group has a
 #sample size of 10, alpha is 0.1 and the noninferiority margin
 #is 20\%.
-size_MN(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,tolEC=1e-4)
+size_MN(alpha=0.1,N.T=10,N.C=10,delta0=0.2,tolEC=1e-4)
 }
 \references{
 \insertRef{Hawila:21}{EC}

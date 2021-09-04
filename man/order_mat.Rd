@@ -4,14 +4,14 @@
 \alias{order_mat}
 \title{Order statistic for all 2x2 tables}
 \usage{
-order_mat(N.T, N.C, Delta0, method)
+order_mat(N.T, N.C, delta0, method)
 }
 \arguments{
 \item{N.T}{positive integer representing the sample size in the treatment group}
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
@@ -25,7 +25,7 @@ This function calculate the order statistics for all 2x2 tables
 #16x16 array of the the Santner & Snell test statistic for all
 #possible 2x2 tables arising from a sample size of 15 in the
 #treatment and control group and 30\% noninferiority margin.
-order_mat(N.T=15,N.C=15,Delta0=0.3,method="SS")
+order_mat(N.T=15,N.C=15,delta0=0.3,method="SS")
 }
 \references{
 \insertRef{Santner:80}{EC}

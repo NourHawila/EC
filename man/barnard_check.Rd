@@ -18,8 +18,8 @@ This function checks whether Barnard's criterion (Biometrika, 1947) is satisfied
 \examples{
 #Checks if the Barnard criterion is satisfied for the
 #Miettenin & Nurminen ordering statistic with N.T=15,
-#N.C=15 and Delta0=30\%
-Barnard_check(order_mat(N.T=15,N.C=15,Delta0=0.3,method="MN"))
+#N.C=15 and delta0=30\%
+Barnard_check(order_mat(N.T=15,N.C=15,delta0=0.3,method="MN"))
 }
 \references{
 \insertRef{Barnard:47}{EC}

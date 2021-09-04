@@ -4,7 +4,7 @@
 \alias{stat_EC}
 \title{Exact-corrected test statistic}
 \usage{
-stat_EC(x.T, x.C, N.T, N.C, Delta, Delta0)
+stat_EC(x.T, x.C, N.T, N.C, Delta, delta0)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -17,7 +17,7 @@ stat_EC(x.T, x.C, N.T, N.C, Delta, Delta0)
 
 \item{Delta}{numeric between -1 and 1 representing the constraint for P.C-P.T}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 }
 \value{
 numeric representing the value of the exact-corrected test statistic
@@ -33,8 +33,8 @@ This function calculates the exact-corrected test statistic
 #Second example calculates the exact-corrected test statistic for
 #the Fries et al. (1993) study with proportion of success in the treatment
 #group being 8/15 and 3/15 for the control with a 20\% noninferiority margin.
-stat_EC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
-stat_EC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
+stat_EC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,delta0=0.1)
+stat_EC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,delta0=0.2)
 }
 \references{
 \insertRef{Hawila:21}{EC}

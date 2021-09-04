@@ -4,7 +4,7 @@
 \alias{pval_Chan}
 \title{Exact p-value of Chan (1998)}
 \usage{
-pval_Chan(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE, tol = 0.001)
+pval_Chan(x.T, x.C, N.T, N.C, delta0, method, lower = TRUE, tol = 0.001)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -15,11 +15,11 @@ pval_Chan(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE, tol = 0.001)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 
-\item{lower}{logical. TRUE for the null hypothesis P.T-P.C<=-Delta0.FALSE for the null hypothesis P.T-P.C>-Delta0}
+\item{lower}{logical. TRUE for the null hypothesis P.T-P.C<=-delta0.FALSE for the null hypothesis P.T-P.C>-delta0}
 
 \item{tol}{positive numeric representing the increment size for domain of Delta. Default is set to 0.001.}
 }
@@ -32,8 +32,8 @@ This function calculates the exact p-value based on Chan (1998)
 \examples{
 #The first example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
 #The second example is taken from Hawila & Berg (2021)
-pval_Chan(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
-pval_Chan(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
+pval_Chan(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1,method="MN")
+pval_Chan(x.T=2,x.C=0,N.T=15,N.C=10,delta0=0.12,method="MN")
 }
 \references{
 \insertRef{Chan:98}{EC}

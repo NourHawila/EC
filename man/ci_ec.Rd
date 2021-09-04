@@ -4,7 +4,7 @@
 \alias{ci_EC}
 \title{Confidence interval using the exact-corrected methodology (Hawila & Berg, 2021)}
 \usage{
-ci_EC(x.T, x.C, N.T, N.C, Delta0, alpha = 0.05, tol = 1e-10)
+ci_EC(x.T, x.C, N.T, N.C, delta0, alpha = 0.05, tol = 1e-10)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -15,7 +15,7 @@ ci_EC(x.T, x.C, N.T, N.C, Delta0, alpha = 0.05, tol = 1e-10)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{alpha}{numeric between 0 and 1 representing the significance level}
 
@@ -30,7 +30,7 @@ This is a wrapper function of \code{\link[EC]{ci_general}}
 \examples{
 #This examples demonstrates the confidence intervals for the
 #Rodary et al. study using the exact-corrected method
-ci_EC(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,alpha=0.05)
+ci_EC(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1,alpha=0.05)
 }
 \references{
 \insertRef{Hawila:21}{EC}

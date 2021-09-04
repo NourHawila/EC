@@ -4,7 +4,7 @@
 \alias{stat_general}
 \title{Test statistics for noninferiority hypothesis}
 \usage{
-stat_general(x.T, x.C, N.T, N.C, Delta0, method)
+stat_general(x.T, x.C, N.T, N.C, delta0, method)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -15,7 +15,7 @@ stat_general(x.T, x.C, N.T, N.C, Delta0, method)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
@@ -35,8 +35,8 @@ Miettinen & Nurminen (1985) and Farrington & Manning (1990).
 #for the Fries et al. (1993) study with proportion of success
 #in the treatment group being 8/15 and 3/15 for the control
 #with a 20\% noninferiority margin.
-stat_general(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
-stat_general(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
+stat_general(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1,method="MN")
+stat_general(x.T=8,x.C=3,N.T=15,N.C=15,delta0=0.2,method="FM")
 }
 \references{
 \insertRef{Santner:80}{EC}

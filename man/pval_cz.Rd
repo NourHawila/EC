@@ -4,7 +4,7 @@
 \alias{pval_CZ}
 \title{Chan & Zhang p-value as described in Hawila & Berg (2021)}
 \usage{
-pval_CZ(x.T, x.C, N.T, N.C, Delta0, method, tol = 0.001)
+pval_CZ(x.T, x.C, N.T, N.C, delta0, method = "MN", tol = 0.001)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -15,7 +15,7 @@ pval_CZ(x.T, x.C, N.T, N.C, Delta0, method, tol = 0.001)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 
@@ -29,7 +29,7 @@ This function computes the Chan & Zhang p-value given in Hawila & Berg (2021)
 }
 \examples{
 #This example is taken from Hawila & Berg (2021)
-pval_CZ(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
+pval_CZ(x.T=2,x.C=0,N.T=15,N.C=10,delta0=0.12,method="MN")
 }
 \references{
 \insertRef{Hawila:21}{EC}

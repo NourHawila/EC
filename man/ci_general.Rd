@@ -4,7 +4,17 @@
 \alias{ci_general}
 \title{Noninferiority confidence intervals}
 \usage{
-ci_general(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha = 0.05, tol = 1e-10)
+ci_general(
+  x.T,
+  x.C,
+  N.T,
+  N.C,
+  delta0,
+  method = "MN",
+  EC,
+  alpha = 0.05,
+  tol = 1e-10
+)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -15,7 +25,7 @@ ci_general(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha = 0.05, tol = 1e-10)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 
@@ -35,8 +45,8 @@ without the exact-correction
 \examples{
 #These two examples demonstrate the confidence intervals for the
 #Rodary et al. study with and without the exact-correction.
-ci_general(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
-ci_general(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
+ci_general(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1,method="MN", EC=TRUE)
+ci_general(x.T=83,x.C=69,N.T=88,N.C=76,delta0=0.1,method="MN", EC=FALSE)
 }
 \references{
 \insertRef{Hawila:21}{EC}

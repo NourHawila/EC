@@ -4,7 +4,7 @@
 \alias{likelihood_null}
 \title{Binomial likelihood under the null hypothesis}
 \usage{
-likelihood_null(x.T, x.C, N.T, N.C, P.T, Delta0)
+likelihood_null(x.T, x.C, N.T, N.C, P.T, delta0)
 }
 \arguments{
 \item{x.T}{positive integer representing the observed number of responders in the treatment group}
@@ -17,17 +17,17 @@ likelihood_null(x.T, x.C, N.T, N.C, P.T, Delta0)
 
 \item{P.T}{numeric between 0 and 1 representing the proportion of responders in the treatment group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 }
 \value{
 numeric representing the probability of getting the observed outcome under the null hypothesis
 }
 \description{
-This function evaluates the binomial likelihood under P.T-P.C=-Delta0
+This function evaluates the binomial likelihood under P.T-P.C=-delta0
 }
 \examples{
 #The probability of getting 10/20 successes in the treatment group
 #and 8/20 in the placebo group when the proportion of responders
 #is 30\% and the noninferiority margin is 10\% can be calculated by
-likelihood_null(x.T=10, x.C=8, N.T=20, N.C=20, P.T=0.3, Delta0=0.1)
+likelihood_null(x.T=10, x.C=8, N.T=20, N.C=20, P.T=0.3, delta0=0.1)
 }

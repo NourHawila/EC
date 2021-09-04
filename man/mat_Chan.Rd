@@ -4,14 +4,14 @@
 \alias{mat_Chan}
 \title{Chan (1998) exact p-value for all 2x2 tables}
 \usage{
-mat_Chan(N.T, N.C, Delta0, method)
+mat_Chan(N.T, N.C, delta0, method = "MN")
 }
 \arguments{
 \item{N.T}{positive integer representing the sample size in the treatment group}
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
+\item{delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
@@ -27,7 +27,7 @@ This function is primarily used in the \code{\link[EC]{size_Chan}} function.
 #statistic for all possible 2x2 tables arising from a sample size
 #of 7 in the treatment group and 5 in the control group and 10\%
 #noninferiority margin.
-mat_Chan(N.T=7,N.C=5,Delta0=0.1,method="FM")
+mat_Chan(N.T=7,N.C=5,delta0=0.1,method="FM")
 }
 \references{
 \insertRef{Chan:98}{EC}
