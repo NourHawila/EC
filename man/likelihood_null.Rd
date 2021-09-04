@@ -17,7 +17,7 @@ likelihood_null(x.T, x.C, N.T, N.C, P.T, Delta0)
 
 \item{P.T}{numeric between 0 and 1 representing the proportion of responders in the treatment group}
 
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
 }
 \value{
 numeric representing the probability of getting the observed outcome under the null hypothesis

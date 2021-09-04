@@ -2,7 +2,7 @@
 % Please edit documentation in R/EC.R
 \name{mat_Chan}
 \alias{mat_Chan}
-\title{Chan p-value for all 2x2 tables}
+\title{Chan (1998) exact p-value for all 2x2 tables}
 \usage{
 mat_Chan(N.T, N.C, Delta0, method)
 }
@@ -11,7 +11,7 @@ mat_Chan(N.T, N.C, Delta0, method)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }

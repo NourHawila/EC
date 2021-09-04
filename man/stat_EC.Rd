@@ -17,7 +17,7 @@ stat_EC(x.T, x.C, N.T, N.C, Delta, Delta0)
 
 \item{Delta}{numeric between -1 and 1 representing the constraint for P.C-P.T}
 
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
 }
 \value{
 numeric representing the value of the exact-corrected test statistic

@@ -23,7 +23,7 @@ ci_MN(x.T, x.C, N.T, N.C, alpha = 0.05, tol = 1e-10)
 list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
 }
 \description{
-This is a wrapper function of \code{\link[EC]{confintZ}}
+This is a wrapper function of \code{\link[EC]{ci_general}}
 }
 \examples{
 #This examples demonstrates the confidence intervals for the
@@ -34,5 +34,5 @@ ci_MN(x.T=83,x.C=69,N.T=88,N.C=76,alpha=0.05)
 \insertRef{Miettinen:85}{EC}
 }
 \seealso{
-\link{confintZ}
+\link{ci_general}
 }

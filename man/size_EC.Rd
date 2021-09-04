@@ -13,7 +13,7 @@ size_EC(alpha, N.T, N.C, Delta0, tolEC = 1e-04)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{tolEC}{positive numeric representing the tolerance for confidence interval convergence}
 }

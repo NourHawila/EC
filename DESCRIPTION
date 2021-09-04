@@ -1,6 +1,6 @@
 Package: EC
-Title: Implemention of the Exact-Corrected Non-inferiority Test
-Version: 3.0
+Title: Exact-corrected confidence interval and other useful functions to analyze noninferiority binomial trials
+Version: 3.1
 Authors@R: 
     c(person(given = "Nour",
            family = "Hawila",
@@ -10,10 +10,7 @@ Authors@R:
            family = "Berg",
            role = c("aut"),
            email = "statisticalberg@gmail.com"))
-Description: Implementing non-inferiority tests with accompanying p-values and confidence intervals. Testing 
-    could be done using different test statistics including an exact-corrrected method. Functions for computing
-    the true levels for the
-    p-value and confidence interval methods are also calculated. 
+Description: This package calculates the exact-corrected confidence interval (Hawila & Berg, 2021) and other confidence intervals for noninferiorty binomial trials with various methods. Additionally, following Hawila & Berg (2021), functions are provided to calculate maximal sizes and p-values corresponding to different confidence interval methods.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

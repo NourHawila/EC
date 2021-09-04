@@ -2,7 +2,7 @@
 % Please edit documentation in R/EC.R
 \name{stat_general}
 \alias{stat_general}
-\title{Test statistics for non-inferiority hypothesis}
+\title{Test statistics for noninferiority hypothesis}
 \usage{
 stat_general(x.T, x.C, N.T, N.C, Delta0, method)
 }
@@ -15,7 +15,7 @@ stat_general(x.T, x.C, N.T, N.C, Delta0, method)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{method}{character representing the method for ordering criterion("MN","FM","SS","Blackwelder")}
 }
@@ -23,7 +23,7 @@ stat_general(x.T, x.C, N.T, N.C, Delta0, method)
 numeric representing the value of the test statistic
 }
 \description{
-This function  calculate statistics for testing non-inferiority based on Santner & Snell (1980), Blackwelder (1982),
+This function  calculate statistics for testing noninferiority based on Santner & Snell (1980), Blackwelder (1982),
 Miettinen & Nurminen (1985) and Farrington & Manning (1990).
 }
 \examples{

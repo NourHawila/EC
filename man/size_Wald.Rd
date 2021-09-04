@@ -12,8 +12,6 @@ size_Wald(alpha, N.T, N.C)
 \item{N.T}{positive integer representing the sample size in the treatment group}
 
 \item{N.C}{positive integer representing the sample size in the control group}
-
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
 }
 \value{
 numeric representing the level of test based on the specified confidence interval method

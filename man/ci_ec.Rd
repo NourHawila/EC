@@ -15,7 +15,7 @@ ci_EC(x.T, x.C, N.T, N.C, Delta0, alpha = 0.05, tol = 1e-10)
 
 \item{N.C}{positive integer representing the sample size in the control group}
 
-\item{Delta0}{numeric between 0 and 1 representing the non-inferiority margin}
+\item{Delta0}{numeric between 0 and 1 representing the noninferiority margin}
 
 \item{alpha}{numeric between 0 and 1 representing the significance level}
 
@@ -25,7 +25,7 @@ ci_EC(x.T, x.C, N.T, N.C, Delta0, alpha = 0.05, tol = 1e-10)
 list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
 }
 \description{
-This is a wrapper function of \code{\link[EC]{confintZ}}
+This is a wrapper function of \code{\link[EC]{ci_general}}
 }
 \examples{
 #This examples demonstrates the confidence intervals for the
@@ -36,5 +36,5 @@ ci_EC(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,alpha=0.05)
 \insertRef{Hawila:21}{EC}
 }
 \seealso{
-\link{confintZ}
+\link{ci_general}
 }
