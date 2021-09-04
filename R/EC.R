@@ -203,7 +203,7 @@ Barnard_check=function(mat){
 #' \insertRef{Hawila:21}{EC}
 #' @export
 pval_MN <- function(x.T, x.C, N.T, N.C, delta0) {
-  1-qnorm(stat_general(x.T, x.C, N.T, N.C, delta0,method="MN"))
+  1-pnorm(stat_general(x.T, x.C, N.T, N.C, delta0,method="MN"))
 }
 
 #' p-value corresponding to the Wald confidence interval
@@ -224,8 +224,8 @@ pval_Wald <- function(x.T, x.C, N.T, N.C, delta0) {
   p.T = x.T/N.T
   p.C = x.C/N.C
   se = sqrt(p.T*(1-p.T)/N.T + p.C*(1-p.C)/N.C)
-  z = (p.T-p.C)/se
-  1-qnorm(z)
+  z = (p.T-p.C-delta0)/se
+  1-pnorm(z)
 }
 
 #' Exact p-value of Chan (1998)
