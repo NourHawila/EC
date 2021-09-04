@@ -2,7 +2,7 @@
 % Please edit documentation in R/EC.R
 \name{barnard_check}
 \alias{barnard_check}
-\title{Verifying Barnard's Criterion}
+\title{Verifying Barnard's criterion}
 \usage{
 barnard_check(mat)
 }
@@ -10,10 +10,10 @@ barnard_check(mat)
 \item{mat}{array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j}
 }
 \value{
-logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
+logical. TRUE if Barnard's criterion is satisfied, FALSE otherwise
 }
 \description{
-This function checks whether Barnard's Criterion (Biometrika, 1947) is satisfied
+This function checks whether Barnard's criterion (Biometrika, 1947) is satisfied
 }
 \examples{
 #Checks if the Barnard criterion is satisfied for the

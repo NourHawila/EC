@@ -2,7 +2,7 @@
 % Please edit documentation in R/EC.R
 \name{confintZ}
 \alias{confintZ}
-\title{Non-inferiority Confidence Intervals}
+\title{Non-inferiority confidence intervals}
 \usage{
 confintZ(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha = 0.05, tol = 1e-10)
 }
@@ -26,7 +26,7 @@ confintZ(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha = 0.05, tol = 1e-10)
 \item{tol}{positive numeric representing the tolerance for convergence}
 }
 \value{
-list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
+list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
 }
 \description{
 This function computes the confidence interval limits given an ordering criterion with or

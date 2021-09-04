@@ -1,4 +1,4 @@
-#' Restricted MLE of Variance
+#' Restricted MLE of variance
 #'
 #' This function calculates the maximum likelihood estimator (MLE) of the variance
 #' restricted to P.T-P.C=-Delta.
@@ -11,11 +11,11 @@
 #' @return list of length 2 where the first element is MR.T representing the MLE for the treatment group and the second element is MR.C representing the MLE for the control group
 #' @examples
 #' #calculates MLE of variance of 5/10 and 7/10 under the constraint P.T=P.C-0.2
-#' restricted_ml(x.T=5,x.C=7,N.T=10,N.C=10,Delta=0.2)
+#' restricted_mle(x.T=5,x.C=7,N.T=10,N.C=10,Delta=0.2)
 #' @references
 #' \insertRef{Miettinen:85}{EC}
 #' @export
-restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
+restricted_mle = function(x.T, x.C, N.T, N.C, Delta) {
   R.T = x.T/N.T
   R.C = x.C/N.C
   N = N.C+N.T
@@ -41,10 +41,10 @@ restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
 
 
 
-#' Delta-projected Test Statistic for Non-inferiority Hypothesis
+#' Test statistics for non-inferiority hypothesis
 #'
 #' This function  calculate statistics for testing non-inferiority based on Santner & Snell (1980), Blackwelder (1982),
-#' Miettinen & Nurminen (1985) and Farrington & Manning (1990)
+#' Miettinen & Nurminen (1985) and Farrington & Manning (1990).
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -62,8 +62,8 @@ restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
 #' #for the Fries et al. (1993) study with proportion of success
 #' #in the treatment group being 8/15 and 3/15 for the control
 #' #with a 20% noninferiority margin.
-#' orderfun(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
-#' orderfun(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
+#' stat_general(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
+#' stat_general(x.T=8,x.C=3,N.T=15,N.C=15,Delta0=0.2,method="FM")
 #' @references
 #' \insertRef{Santner:80}{EC}
 #'
@@ -73,8 +73,8 @@ restricted_ml = function(x.T, x.C, N.T, N.C, Delta) {
 #'
 #' \insertRef{Farrington:90}{EC}
 #' @export
-orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
-  rml = restricted_ml(
+stat_general = function(x.T, x.C, N.T, N.C, Delta0, method) {
+  rml = restricted_mle(
     x.T = x.T,
     x.C = x.C,
     N.T = N.T,
@@ -121,7 +121,7 @@ orderfun = function(x.T, x.C, N.T, N.C, Delta0, method) {
 
 
 
-#' Order Statistic for all 2x2 Tables
+#' Order statistic for all 2x2 tables
 #'
 #' This function calculate the order statistics for all 2x2 tables
 #'
@@ -143,7 +143,7 @@ order_mat = function(N.T, N.C, Delta0, method) {
 
   for (i1 in 0:(N.T)) {
     for (i2 in 0:(N.C)) {
-      res[i1 + 1, i2 + 1] = orderfun(
+      res[i1 + 1, i2 + 1] = stat_general(
         x.T = i1,
         x.C = i2,
         N.T = N.T,
@@ -156,12 +156,12 @@ order_mat = function(N.T, N.C, Delta0, method) {
   res
 }
 
-#' Verifying Barnard's Criterion
+#' Verifying Barnard's criterion
 #'
-#' This function checks whether Barnard's Criterion (Biometrika, 1947) is satisfied
+#' This function checks whether Barnard's criterion (Biometrika, 1947) is satisfied
 #'
 #' @param mat array of dimensions (N.T+1)x(N.C+1) where the (i,j) element is the order statistic for x.T=i and x.C=j
-#' @return logical. TRUE if Barnard's Criterion is satisfied, FALSE otherwise
+#' @return logical. TRUE if Barnard's criterion is satisfied, FALSE otherwise
 #' @examples
 #' #Checks if the Barnard criterion is satisfied for the
 #' #Miettenin & Nurminen ordering statistic with N.T=15,
@@ -256,9 +256,10 @@ pval_cz <- function(x.T, x.C, N.T, N.C, Delta0, method,tol=1e-3){
   max(res)
 }
 
-#' Chan p-value for All 2x2 Tables
+#' Chan p-value for all 2x2 tables
 #'
-#' This function calculates the Chan p-values for all 2x2 tables given N.T, N.C and an ordering criterion
+#' This function calculates the Chan p-values for all 2x2 tables given N.T, N.C and an ordering criterion;
+#' This function is primarily used in the \code{\link[EC]{size_Chan}} function.
 #'
 #' @param N.T  positive integer representing the sample size in the treatment group
 #' @param N.C  positive integer representing the sample size in the control group
@@ -270,11 +271,12 @@ pval_cz <- function(x.T, x.C, N.T, N.C, Delta0, method,tol=1e-3){
 #'#statistic for all possible 2x2 tables arising from a sample size
 #'#of 7 in the treatment group and 5 in the control group and 10%
 #'#noninferiority margin.
-#'chan_mat(N.T=7,N.C=5,Delta0=0.1,method="FM")
+#'mat_Chan(N.T=7,N.C=5,Delta0=0.1,method="FM")
 #'@references
 #' \insertRef{Chan:98}{EC}
+#' @seealso [EC::size_Chan]
 #' @export
-chan_mat = function(N.T, N.C, Delta0, method) {
+mat_Chan = function(N.T, N.C, Delta0, method) {
   mat = array(NA, dim = c(N.T + 1, N.C + 1))
   for (i1 in 0:(N.T)) {
     for (i2 in 0:(N.C)) {
@@ -291,9 +293,9 @@ chan_mat = function(N.T, N.C, Delta0, method) {
   mat
 }
 
-#' Exact-Corrected Test Statistic
+#' Exact-corrected test statistic
 #'
-#' This function calculates the Exact-Corrected test statistic
+#' This function calculates the exact-corrected test statistic
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -310,34 +312,34 @@ chan_mat = function(N.T, N.C, Delta0, method) {
 #' #Second example calculates the exact-corrected test statistic for
 #' #the Fries et al. (1993) study with proportion of success in the treatment
 #' #group being 8/15 and 3/15 for the control with a 20% noninferiority margin.
-#' orderfunEC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
-#' orderfunEC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
+#' stat_EC(x.T=83,x.C=69,N.T=88,N.C=76,Delta=0.1,Delta0=0.1)
+#' stat_EC(x.T=8,x.C=3,N.T=15,N.C=15,Delta=0.2,Delta0=0.2)
 #' @references
 #' \insertRef{Hawila:21}{EC}
 #' @export
-orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
+stat_EC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   ECval=0
-  rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
+  rml = restricted_mle(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
   MR.T = rml$MR.T
   MR.C = rml$MR.C
   DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
   pval=pval_chan(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method="MN",lower=TRUE)
   if(pval>1e-10 & pval<(1-1e-10)) {
-    ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C,Delta0=Delta0,method="MN")-qnorm(1-pval))
+    ECval=sqrt(DEN_obs)*(stat_general(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C,Delta0=Delta0,method="MN")-qnorm(1-pval))
   }
 
-  rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta)
+  rml = restricted_mle(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta)
   MR.T = rml$MR.T
   MR.C = rml$MR.C
   DEN <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
   ECterm=ECval/sqrt(DEN)
 
-  list(Z=(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta,method="MN"))-ECterm, ECterm=ECterm,ratio=DEN_obs/DEN)
+  list(Z=(stat_general(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta,method="MN"))-ECterm, ECterm=ECterm,ratio=DEN_obs/DEN)
 }
 
-#'Null Likelihood
+#' Binomial likelihood under the null hypothesis
 #'
-#' This function evaluates the Binomial likelihood under P.T-P.C=-Delta0
+#' This function evaluates the binomial likelihood under P.T-P.C=-Delta0
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -357,9 +359,9 @@ likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
   dbinom(x.T, N.T, P.T) * dbinom(x.C, N.C, P.C)
 }
 
-#' Level of Chan's Exact p-value
+#' Maximal size of Chan's exact p-value
 #'
-#' This function calculates the level of the exact p-value based on Chan (1998)
+#' This function calculates the maximal size of Chan's (1998) exact p-value; see Hawila & Berg (2021)
 #'
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param N.T  positive integer representing the sample size in the treatment group
@@ -369,12 +371,13 @@ likelihood_null = function(x.T, x.C, N.T, N.C, P.T, Delta0) {
 #' @return numeric representing the level using Chan's p-value method
 #' @examples
 #' #Level of Chan's p-value method for the Fries et al. study (1993)
-#' chan_level(alpha=0.05,N.T=15,N.C=15,Delta0=0.2,method="MN")
+#' size_Chan(alpha=0.05,N.T=15,N.C=15,Delta0=0.2,method="MN")
 #' @references
+#' \insertRef{Hawila:21}{EC}
 #' \insertRef{Chan:03}{EC}
 #' @export
-chan_level = function(alpha, N.T, N.C, Delta0, method) {
-  mat = chan_mat(
+size_Chan = function(alpha, N.T, N.C, Delta0, method) {
+  mat = mat_Chan(
     N.T = N.T,
     N.C = N.C,
     Delta0 = Delta0,
@@ -401,7 +404,7 @@ chan_level = function(alpha, N.T, N.C, Delta0, method) {
   list(mat = mat, dimind = dim(ind), res = res, level = max(res))
 }
 
-#' Non-inferiority Confidence Intervals
+#' Non-inferiority confidence intervals
 #'
 #' This function computes the confidence interval limits given an ordering criterion with or
 #' without the exact-correction
@@ -415,7 +418,7 @@ chan_level = function(alpha, N.T, N.C, Delta0, method) {
 #' @param EC logical. TRUE for the exact-corrected confidence limits. FALSE for default method without exact-correction
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param tol positive numeric representing the tolerance for convergence
-#' @return list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
+#' @return list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
 #' @examples
 #' #These two examples demonstrate the confidence intervals for the
 #' #Rodary et al. study with and without the exact-correction.
@@ -432,13 +435,13 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
   ECval=0
   count=0
   if(EC==TRUE){
-    rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
+    rml = restricted_mle(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = Delta0)
     MR.T = rml$MR.T
     MR.C = rml$MR.C
     DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
     pval=pval_chan(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,lower = TRUE)
     if(pval<0.999999999999999) {
-      ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta0, method)-qnorm(1-pval))
+      ECval=sqrt(DEN_obs)*(stat_general(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta0, method)-qnorm(1-pval))
     }
     if(pval>0.999999999999999) {
       count=100
@@ -453,11 +456,11 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     repeat{
       count=count+1
       Dmid=(D1+D2)/2
-      rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
+      rml = restricted_mle(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
       MR.T = rml$MR.T
       MR.C = rml$MR.C
       DEN <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
-      chi2.stat=ifelse(DEN>0, (orderfun(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=-Dmid,method=method)-ECval/sqrt(DEN))^2, 0)
+      chi2.stat=ifelse(DEN>0, (stat_general(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=-Dmid,method=method)-ECval/sqrt(DEN))^2, 0)
 
       if(chi2.stat < chi2){D1=Dmid}
       if(chi2.stat > chi2){D2=Dmid}
@@ -465,7 +468,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
       if(abs(chi2.stat-chi2)<tol | count>=70 | chi2.stat>1e8){break}
     }
 
-    D.lower=Dmid
+    ci.lower=Dmid
 
     D1=x.T/N.T-x.C/N.C
     D2=1
@@ -473,11 +476,11 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     repeat{
       count=count+1
       Dmid=(D1+D2)/2
-      rml = restricted_ml(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
+      rml = restricted_mle(x.T = x.T, x.C = x.C, N.T = N.T, N.C = N.C, Delta = -Dmid)
       MR.T = rml$MR.T
       MR.C = rml$MR.C
       DEN <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
-      chi2.stat=ifelse(DEN>0, (orderfun(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=-Dmid,method=method)-ECval/sqrt(DEN))^2, 0)
+      chi2.stat=ifelse(DEN>0, (stat_general(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=-Dmid,method=method)-ECval/sqrt(DEN))^2, 0)
 
       if(chi2.stat < chi2){D1=Dmid}
       if(chi2.stat > chi2){D2=Dmid}
@@ -485,21 +488,24 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
       if(abs(chi2.stat-chi2)<tol | count>=70 | chi2.stat>1e8){break}
     }
 
-    D.upper=Dmid
+    ci.upper=Dmid
   }
 
   if(count==100) {
-    D.lower = -1
-    D.upper = 1
+    ci.lower = -1
+    ci.upper = 1
   }
 
-  list(D.lower=D.lower,D.upper=D.upper,count=count)
+  list(ci.lower=ci.lower,ci.upper=ci.upper,count=count)
 }
 
 
 #' Confidence interval using Chan & Zhang (1999) methodology
 #'
-#' This function calculates the confidence interval based on Chan & Zhang (1999)
+#' This function calculates the confidence interval based on Chan & Zhang (1999) given an ordering
+#' criterion specified in the method argument. The default ordering criterion (method="MN") is
+#' the ordering criterion used in Chan & Zhang (1999).
+#'
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -509,16 +515,16 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param tol positive numeric representing the increment size for domain of Delta. Default is set to 0.001.
 #' @param width positive numeric representing the range from starting values based on Miettinen & Nurminen confidence limits.
-#' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
+#' @return list of length 2 (ci.lower, ci.upper) representing the lower and upper Chan and Zhang confidence limits
 #' @examples
 #'#Chan & Zhang confidence interval for the Rodary et al. study. (1989)
-#'#ci_cz(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+#'#ci_CZ(x.T=83,x.C=69,N.T=88,N.C=76, method="MN",alpha=0.05)
 #'@references
 #' \insertRef{Chan:99}{EC}
 #' @export
-ci_cz <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
-  d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
-  d_UL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.upper
+ci_CZ <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
+  d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$ci.lower
+  d_UL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$ci.upper
 
   deltaL=seq(max(-d_LL-width,-0.9999),min(-d_LL+width,0.9999),tol)
   deltaU=seq(max(-d_UL-width,-0.9999),min(-d_UL+width,0.9999),tol)
@@ -533,15 +539,15 @@ ci_cz <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
     if(length(deltaU[probsU>alpha/2])>0) UB=min(deltaU[probsU>alpha/2],na.rm=T)
     if(length(deltaU[probsU>alpha/2])==0) UB=-1
 
-  D.lower=-LB
-  D.upper=-UB
+  ci.lower=-LB
+  ci.upper=-UB
 
-  list(D.lower=D.lower, D.upper=D.upper)
+  list(ci.lower=ci.lower, ci.upper=ci.upper)
 }
 
-#' Level of Confidence Interval
+#' Maximal size of tests based on various confidence interval methods
 #'
-#' This function evaluates true level of decision rule based on confidence interval method
+#' This function evaluates maximum size of the decision rule based on a given confidence interval method; see Hawila & Berg (2021)
 #'
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param N.T  positive integer representing the sample size in the treatment group
@@ -560,29 +566,30 @@ ci_cz <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
 #' #Miettenen and Nurminen test statistic where each group has a
 #' #sample size of 10, alpha is 0.1 and the noninferiority margin
 #' #is 20%.
-#' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
-#' #ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
-#' ci_level(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
+#' size_ci(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
+#' #size_ci(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,width=1e-3)
+#' size_ci(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,width=1e-3)
 #' @references
 #' \insertRef{Hawila:21}{EC}
 #' \insertRef{Chan:99}{EC}
 #' \insertRef{Miettinen:85}{EC}
-
 #' @export
-ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, width) {
+size_ci <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC=1e-6, CZ, tolCZ=1e-3, width=0.3) {
   M=matrix(0,N.T+1,N.C+1)
+  count=0
   for(i in 0:N.T) {
     for(j in 0:N.C) {
       if(CZ) {
-        ci = ci_cz(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
-        lb=ci$D.lower
-        ub=ci$D.upper
+        ci = ci_CZ(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
+        lb=ci$ci.lower
+        ub=ci$ci.upper
       }
       if(!CZ) {
-        ci = confintZ(x.T=i,x.C=j,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,EC=EC,alpha=alpha,tol=tolEC)
-        lb=ci$D.lower
-        ub=ci$D.upper
-        count=ci$count
+        if(method !="Wald") ci = confintZ(x.T=i,x.C=j,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,EC=EC,alpha=alpha,tol=tolEC)
+        if(method == "Wald") ci = ci_Wald(x.T=i,x.C=j,N.T=N.T,N.C=N.C,alpha=alpha)
+        lb=ci$ci.lower
+        ub=ci$ci.upper
+        if(method != "Wald") count=ci$count
       }
       ci.rej = (lb>=-Delta0)
 
@@ -635,29 +642,140 @@ ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, widt
 #' @param N.T  positive integer representing the sample size in the treatment group
 #' @param N.C  positive integer representing the sample size in the control group
 #' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
-#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
-#' @param EC logical. TRUE for the exact-corrected confidence limits. FALSE for default method without exact-correction
 #' @param alpha  numeric between 0 and 1 representing the significance level
 #' @param tol positive numeric representing the tolerance for convergence
-#' @return list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
+#' @return list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
 #' @examples
-#' #These two examples demonstrate the confidence intervals for the
-#' #Rodary et al. study with and without the exact-correction.
-#' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
-#' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
+#' #This examples demonstrates the confidence intervals for the
+#' #Rodary et al. study using the exact-corrected method
+#' ci_EC(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,alpha=0.05)
 #' @references
 #' \insertRef{Hawila:21}{EC}
-#'
-#' \insertRef{Miettinen:85}{EC}
-#'
-#' \insertRef{Farrington:90}{EC}
 #' @seealso [EC::confintZ]
 #' @export
-ci_ec <- function(){
-  #confintZ()
+ci_EC <- function(x.T, x.C, N.T, N.C, Delta0,alpha = 0.05, tol = 1e-10){
+  confintZ(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta0, method="MN", EC=T, alpha=alpha,tol=tol)
+}
+
+#' Confidence interval using the Miettinen & Nurminen (1985) methodology
+#'
+#' This is a wrapper function of \code{\link[EC]{confintZ}}
+#'
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param tol positive numeric representing the tolerance for convergence
+#' @return list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
+#' @examples
+#' #This examples demonstrates the confidence intervals for the
+#' #Rodary et al. study using the exact-corrected method
+#' ci_MN(x.T=83,x.C=69,N.T=88,N.C=76,alpha=0.05)
+#' @references
+#' \insertRef{Miettinen:85}{EC}
+#' @seealso [EC::confintZ]
+#' @export
+ci_MN <- function(x.T, x.C, N.T, N.C,alpha = 0.05, tol = 1e-10){
+  confintZ(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=0, method="MN", EC=F, alpha=alpha,tol=tol)
+}
+
+#' Confidence interval using the Wald methodology
+#'
+#'
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @return list of length 2 (ci.lower, ci.upper) representing the lower and upper confidence limits
+#' @examples
+#' #This examples demonstrates the confidence intervals for the
+#' #Kim et al. study using Wald's method
+#' ci_Wald(x.T=173,x.C=174,N.T=181,N.C=181,alpha=0.05)
+#' @references
+#' \insertRef{Altman:13}{EC}
+#' \insertRef{Fagerland:15}{EC}
+#' @export
+ci_Wald <- function(x.T, x.C, N.T, N.C,alpha = 0.05){
+  p.T = x.T/N.T
+  p.C = x.C/N.C
+  se = sqrt(p.T*(1-p.T)/N.T + p.C*(1-p.C)/N.C)
+  ci.lower = p.T-p.C - qnorm(1-alpha/2)*se
+  ci.upper = p.T-p.C + qnorm(1-alpha/2)*se
+  return(list(ci.lower=ci.lower, ci.upper=ci.upper))
 }
 
 
+
+#' Maximal size of the exact-corrected confidence interval
+#'
+#' This function evaluates maximum size of the decision rule based on the exact-corrected confidence interval
+#'
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param tolEC positive numeric representing the tolerance for confidence interval convergence
+#' @return numeric representing the level of test based on the specified confidence interval method
+#' @examples
+#' #The three examples calculate the level of the exact-corrected,
+#' #Chan & Zhang and Asymptotic confidence interval based on the
+#' #Miettenen and Nurminen test statistic where each group has a
+#' #sample size of 10, alpha is 0.1 and the noninferiority margin
+#' #is 20%.
+#' size_EC(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,tolEC=1e-4)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#' @export
+size_EC <- function(alpha, N.T, N.C, Delta0,tolEC=1e-4){
+size_ci(alpha, N.T, N.C, Delta0, method="MN", EC=T, tolEC=tolEC,CZ=F)
+}
+
+#' Maximal size of the Miettinen & Nurminen (1985) confidence interval
+#'
+#' This function evaluates maximum size of the decision rule based on the Miettinen & Nurminen confidence interval
+#'
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param tolEC positive numeric representing the tolerance for confidence interval convergence
+#' @return numeric representing the level of test based on the specified confidence interval method
+#' @examples
+#' #The example calculates the size of the confidence interval based on the
+#' #Miettenen and Nurminen test statistic where each group has a
+#' #sample size of 10, alpha is 0.1 and the noninferiority margin
+#' #is 20%.
+#' size_MN(alpha=0.1,N.T=10,N.C=10,Delta0=0.2,tolEC=1e-4)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#' @export
+size_MN <- function(alpha, N.T, N.C, Delta0,tolEC=1e-4){
+  size_ci(alpha, N.T, N.C, Delta0, method="MN", EC=F, tolEC=tolEC,CZ=F)
+}
+
+
+#' Maximal size of the Wald confidence interval
+#'
+#' This function evaluates maximum size of the decision rule based on the Wald confidence interval
+#'
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @return numeric representing the level of test based on the specified confidence interval method
+#' @examples
+#' #The example calculates the size of the confidence interval based on the
+#' #Wald's method where each group has a
+#' #sample size of 10, alpha is 0.1 and the noninferiority margin
+#' #is 20%.
+#' size_Wald(alpha=0.1,N.T=10,N.C=10)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#' @export
+size_Wald <- function(alpha, N.T, N.C){
+  size_ci(alpha, N.T, N.C, method="Wald",EC=F,CZ=F,Delta0=0)
+}
 
 
 #' @importFrom Rdpack reprompt

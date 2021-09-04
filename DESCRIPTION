@@ -1,6 +1,6 @@
 Package: EC
 Title: Implemention of the Exact-Corrected Non-inferiority Test
-Version: 2.1
+Version: 3.0
 Authors@R: 
     c(person(given = "Nour",
            family = "Hawila",

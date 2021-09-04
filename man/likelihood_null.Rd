@@ -2,7 +2,7 @@
 % Please edit documentation in R/EC.R
 \name{likelihood_null}
 \alias{likelihood_null}
-\title{Null Likelihood}
+\title{Binomial likelihood under the null hypothesis}
 \usage{
 likelihood_null(x.T, x.C, N.T, N.C, P.T, Delta0)
 }
@@ -23,7 +23,7 @@ likelihood_null(x.T, x.C, N.T, N.C, P.T, Delta0)
 numeric representing the probability of getting the observed outcome under the null hypothesis
 }
 \description{
-This function evaluates the Binomial likelihood under P.T-P.C=-Delta0
+This function evaluates the binomial likelihood under P.T-P.C=-Delta0
 }
 \examples{
 #The probability of getting 10/20 successes in the treatment group

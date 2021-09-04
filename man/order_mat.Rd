@@ -2,7 +2,7 @@
 % Please edit documentation in R/EC.R
 \name{order_mat}
 \alias{order_mat}
-\title{Order Statistic for all 2x2 Tables}
+\title{Order statistic for all 2x2 tables}
 \usage{
 order_mat(N.T, N.C, Delta0, method)
 }
