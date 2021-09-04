@@ -185,7 +185,7 @@ barnard_check=function(mat){
   if(out==0) return(FALSE)
 }
 
-#' Chan's Exact P-value
+#' Chan's Exact p-value
 #'
 #' This function calculates the exact p-value based on Chan (1998)
 #'
@@ -200,13 +200,13 @@ barnard_check=function(mat){
 #' @return numeric representing Chan's exact p-value
 #' @examples
 #' #The first example is taken from Rodary et al. (1989) which was analyzed by Chan (1998)
-#' #The second example is taken from Hawila (2021)
-#' chan_pval(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
-#' chan_pval(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
+#' #The second example is taken from Hawila & Berg (2021)
+#' pval_chan(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN")
+#' pval_chan(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
 #' @references
 #' \insertRef{Chan:98}{EC}
 #' @export
-chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
+pval_chan <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3) {
   myorder_mat = order_mat(N.T, N.C, Delta0 = Delta0, method = method)
   obs = myorder_mat[x.T + 1, x.C + 1]
 
@@ -229,9 +229,9 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 }
 
 
-#' CZ p-value
+#' Chan & Zhang p-value
 #'
-#' This function computes the Chan & Zhang p-value given in Hawila (2021)
+#' This function computes the Chan & Zhang p-value given in Hawila & Berg (2021)
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -242,16 +242,16 @@ chan_pval <- function(x.T, x.C, N.T, N.C, Delta0, method, lower = TRUE,tol=1e-3)
 #' @param tol positive numeric representing the tolerance for calculation
 #' @return numeric representing the Chan & Zhang p-value
 #' @examples
-#' #This example is taken from Hawila (2021)
-#' cz_pval(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
+#' #This example is taken from Hawila & Berg (2021)
+#' pval_cz(x.T=2,x.C=0,N.T=15,N.C=10,Delta0=0.12,method="MN")
 #' @references
 #' \insertRef{Hawila:21}{EC}
 #' @export
-cz_pval <- function(x.T, x.C, N.T, N.C, Delta0, method,tol=1e-3){
+pval_cz <- function(x.T, x.C, N.T, N.C, Delta0, method,tol=1e-3){
   deltas=seq(-0.999,-Delta0,length=1/tol)
   res=array(dim=length(deltas))
   for(d in 1:length(deltas)){
-    res[d] = chan_pval(x.T,x.C,N.T,N.C,-deltas[d],method)
+    res[d] = pval_chan(x.T,x.C,N.T,N.C,-deltas[d],method)
   }
   max(res)
 }
@@ -278,7 +278,7 @@ chan_mat = function(N.T, N.C, Delta0, method) {
   mat = array(NA, dim = c(N.T + 1, N.C + 1))
   for (i1 in 0:(N.T)) {
     for (i2 in 0:(N.C)) {
-      mat[i1 + 1, i2 + 1] = chan_pval(
+      mat[i1 + 1, i2 + 1] = pval_chan(
         x.T = i1,
         x.C = i2,
         N.T = N.T,
@@ -321,7 +321,7 @@ orderfunEC = function(x.T, x.C, N.T, N.C, Delta, Delta0) {
   MR.T = rml$MR.T
   MR.C = rml$MR.C
   DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
-  pval=chan_pval(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method="MN",lower=TRUE)
+  pval=pval_chan(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method="MN",lower=TRUE)
   if(pval>1e-10 & pval<(1-1e-10)) {
     ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C,Delta0=Delta0,method="MN")-qnorm(1-pval))
   }
@@ -436,7 +436,7 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
     MR.T = rml$MR.T
     MR.C = rml$MR.C
     DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
-    pval=chan_pval(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,lower = TRUE)
+    pval=pval_chan(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,Delta0=Delta0,method=method,lower = TRUE)
     if(pval<0.999999999999999) {
       ECval=sqrt(DEN_obs)*(orderfun(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, Delta0=Delta0, method)-qnorm(1-pval))
     }
@@ -497,9 +497,9 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 }
 
 
-#' Chan and Zhang Confidence Interval
+#' Confidence interval using Chan & Zhang (1999) methodology
 #'
-#' This function calculates the confidence interval based on Chan and Zhang (1999)
+#' This function calculates the confidence interval based on Chan & Zhang (1999)
 #'
 #' @param x.T  positive integer representing the observed number of responders in the treatment group
 #' @param x.C  positive integer representing the observed number of responders in the control group
@@ -512,11 +512,11 @@ confintZ = function(x.T, x.C, N.T, N.C, Delta0, method, EC, alpha=.05, tol=1e-10
 #' @return list of length 2 (D.lower, D.upper) representing the lower and upper Chan and Zhang confidence limits
 #' @examples
 #'#Chan & Zhang confidence interval for the Rodary et al. study. (1989)
-#'#chan_zhang(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
+#'#ci_cz(x.T=83,x.C=69,N.T=88,N.C=76, method="MN")
 #'@references
 #' \insertRef{Chan:99}{EC}
 #' @export
-chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
+ci_cz <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.3) {
   d_LL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.lower
   d_UL = confintZ(x.T, x.C, N.T, N.C, Delta0=0, method,EC=F)$D.upper
 
@@ -525,8 +525,8 @@ chan_zhang <- function(x.T, x.C, N.T, N.C, method, alpha=.05, tol=1e-3, width=0.
   probsL=rep(NA, length(deltaL))
   probsU=rep(NA, length(deltaL))
 
-    for (i in 1:length(deltaL)) probsL[i]=chan_pval(x.T, x.C, N.T, N.C, deltaL[i], method ="MN", lower=T)
-    for (i in 1:length(deltaU)) probsU[i]=chan_pval(x.T, x.C, N.T, N.C, deltaU[i],method = "MN", lower=F)
+    for (i in 1:length(deltaL)) probsL[i]=pval_chan(x.T, x.C, N.T, N.C, deltaL[i], method ="MN", lower=T)
+    for (i in 1:length(deltaU)) probsU[i]=pval_chan(x.T, x.C, N.T, N.C, deltaU[i],method = "MN", lower=F)
 
     if(length(deltaL[probsL>alpha/2])>0) LB=max(deltaL[probsL>alpha/2],na.rm=T)
     if(length(deltaL[probsL>alpha/2])==0) LB=1
@@ -574,7 +574,7 @@ ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, widt
   for(i in 0:N.T) {
     for(j in 0:N.C) {
       if(CZ) {
-        ci = chan_zhang(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
+        ci = ci_cz(x.T=i,x.C=j,N.T=N.T,N.C=N.C,method=method,tol=tolCZ,width=width,alpha=alpha)
         lb=ci$D.lower
         ub=ci$D.upper
       }
@@ -624,5 +624,40 @@ ci_level <- function(alpha, N.T, N.C, Delta0, method, EC, tolEC, CZ, tolCZ, widt
   }
   list(level=level)
 }
+
+
+#' Confidence interval using the exact-corrected methodology (Hawila & Berg, 2021)
+#'
+#' This is a wrapper function of \code{\link[EC]{confintZ}}
+#'
+#' @param x.T  positive integer representing the observed number of responders in the treatment group
+#' @param x.C  positive integer representing the observed number of responders in the control group
+#' @param N.T  positive integer representing the sample size in the treatment group
+#' @param N.C  positive integer representing the sample size in the control group
+#' @param Delta0  numeric between 0 and 1 representing the non-inferiority margin
+#' @param method character representing the method for ordering criterion("MN","FM","SS","Blackwelder")
+#' @param EC logical. TRUE for the exact-corrected confidence limits. FALSE for default method without exact-correction
+#' @param alpha  numeric between 0 and 1 representing the significance level
+#' @param tol positive numeric representing the tolerance for convergence
+#' @return list of length 2 (D.lower, D.upper) representing the lower and upper confidence limits
+#' @examples
+#' #These two examples demonstrate the confidence intervals for the
+#' #Rodary et al. study with and without the exact-correction.
+#' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=TRUE)
+#' confintZ(x.T=83,x.C=69,N.T=88,N.C=76,Delta0=0.1,method="MN", EC=FALSE)
+#' @references
+#' \insertRef{Hawila:21}{EC}
+#'
+#' \insertRef{Miettinen:85}{EC}
+#'
+#' \insertRef{Farrington:90}{EC}
+#' @seealso [EC::confintZ]
+#' @export
+ci_ec <- function(){
+  #confintZ()
+}
+
+
+
 
 #' @importFrom Rdpack reprompt

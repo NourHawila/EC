@@ -7,4 +7,4 @@ citEntry(entry = "misc",
          year = "2021",
          isbn = "978-3-319-24277-4",
          url = "https://arxiv.org/abs/2104.04660",
-         textVersion = "N. Hawila and A. Berg. Exact-corrected confidence interval for risk difference in noninferiority binomial trials. https://arxiv.org/abs/2104.0466.")
+         textVersion = "N. Hawila and A. Berg (2021). Exact-corrected confidence interval for risk difference in noninferiority binomial trials. https://arxiv.org/abs/2104.0466.")
