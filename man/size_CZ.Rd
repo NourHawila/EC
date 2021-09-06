@@ -4,7 +4,7 @@
 \alias{size_CZ}
 \title{Maximal size of the Chan & Zhang (1999) confidence interval}
 \usage{
-size_CZ(alpha, N.T, N.C, delta0, tolCZ = 0.001, eps = 0.001)
+size_CZ(alpha, N.T, N.C, delta0, tolCZ = 0.001, eps = 0.3)
 }
 \arguments{
 \item{alpha}{numeric between 0 and 1 representing the significance level}
@@ -31,7 +31,7 @@ This function evaluates maximum size of the decision rule based on Chan & Zhang'
 #Miettenen and Nurminen test statistic where each group has a
 #sample size of 10, alpha is 0.1 and the noninferiority margin
 #is 20\%.
-size_CZ(alpha=0.1,N.T=10,N.C=10,delta0=0.2,tolCZ=1e-3)
+#size_CZ(alpha=0.1,N.T=10,N.C=10,delta0=0.2,tolCZ=1e-3)
 }
 \references{
 \insertRef{Hawila:21}{EC}

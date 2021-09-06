@@ -50,9 +50,9 @@ This function evaluates maximum size of the decision rule based on a given confi
 #Miettenen and Nurminen test statistic where each group has a
 #sample size of 10, alpha is 0.1 and the noninferiority margin
 #is 20\%.
-size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,eps=1e-3)
-#size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,eps=1e-3)
-size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,eps=1e-3)
+size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=TRUE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,eps=0.3)
+#size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=TRUE,tolCZ=1e-3,eps=0.3)
+size_general(alpha=0.1,N.T=10,N.C=10,delta0=0.2,method="MN",EC=FALSE,tolEC=1e-4,CZ=FALSE,tolCZ=1e-3,eps=0.3)
 }
 \references{
 \insertRef{Hawila:21}{EC}
