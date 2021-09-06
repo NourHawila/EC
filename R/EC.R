@@ -444,7 +444,7 @@ size_Chan = function(alpha, N.T, N.C, delta0, method="MN") {
 
     res[ptvar] = tot
   }
-  list(mat = mat, dimind = dim(ind), res = res, level = max(res))
+  list(mat = mat, dimind = dim(ind), res = res, size = max(res))
 }
 
 #' Noninferiority confidence intervals
@@ -653,7 +653,7 @@ size_general <- function(alpha, N.T, N.C, delta0, method="MN", EC, tolEC=1e-6, C
   res = rep(NA, length(P.T.vec))
 
   if(dim(ind)[1]==0) {
-    level=0
+    size=0
   }
   if(dim(ind)[1]>0) {
     for (ptvar in 1:length(P.T.vec)) {
@@ -669,10 +669,10 @@ size_general <- function(alpha, N.T, N.C, delta0, method="MN", EC, tolEC=1e-6, C
         )
       }
       res[ptvar] = tot
-      level=max(res)
+      size=max(res)
     }
   }
-  list(level=level)
+  size
 }
 
 
