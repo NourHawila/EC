@@ -1,0 +1,104 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache=TRUE
+)
+
+
+```
+
+# EC 
+
+## Overview
+
+This package calculates the exact-corrected confidence interval [Hawila & Berg, 2021][HB21] and other confidence intervals for noninferiorty binomial trials with various methods. Additionally, as described in [Hawila & Berg (2021)][HB21], functions are provided to calculate maximal sizes and p-values corresponding to different confidence interval methods.
+
+
+## Installation
+
+```{r, eval = FALSE}
+library(devtools)
+install_github("NourHawila/EC")
+```
+
+## Load the package
+
+```{r}
+library(EC)
+```
+
+## Usage
+
+We consider a noninferiority trial with treatment group ($T$) and control/standard-of-care group ($C$) having a binary endpoint representing whether or not an outcome is observed. Here we assume the outcome is a positive event  (e.g. resolution of a disease).
+
+Let $P_T$ and $P_C$ be the probabilities the outcome is observed, and let $\delta=P_T-P_C$ represent the risk difference. We consider the following hypotheses:
+
+$H_0: \delta\le -\delta_0$: "inferior trial"; $T$ is inferior to $C$ 
+
+$H_1: \delta> -\delta_0$: "non-inferior trial"; $T$ is not inferior to $C$
+
+Let `x.T`, `x.C`, `N.T`, `N.C`, `delta0`, and `alpha` be the user-defined values for the noninferiority trial. 
+
+We use small sample sizes in the example below as the Chan & Zhang confidence interval method can take a while to compute.
+
+```{r}
+x.T=5
+x.C=2
+N.T=6
+N.C=6  
+delta0=.12
+alpha=.05
+```
+
+### Confidence intervals
+
+Note that only the exact corrected confidence interval, `ci_EC`, uses the noninferiority margin $\delta_0$ in constructing the confidence interval. Note that $H_0$ is rejected if the lower bound of the confidence interval is larger than $-\delta_0$.
+
+```{r}
+ci_EC(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,alpha=alpha,delta0=delta0)
+ci_CZ(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,alpha=alpha)
+ci_MN(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,alpha=alpha)
+ci_Wald(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,alpha=alpha)
+```
+
+
+### p-values
+
+As described in [Hawila & Berg, 2021][HB21], we correspond a p-value with each confidence interval method. Note that $H_0$ is rejected if the p-value is smaller than $\alpha/2$.
+
+```{r}
+
+pval_Chan(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,delta0=delta0)
+pval_CZ(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,delta0=delta0)
+pval_MN(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,delta0=delta0)
+pval_Wald(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,delta0=delta0)
+
+```
+
+### Maximal sizes
+
+As described in [Hawila & Berg, 2021][HB21], for a given value of $N_T$, $N_C$, and $\alpha$, we can also calculate the maximal size for each confidence interval method. The size of the exact-corrected method is bounded by $\alpha/2$, but the sizes of the other methods can be larger than $\alpha/2$.
+
+```{r}
+size_EC(alpha=alpha,N.T=N.T,N.C=N.C,delta0=delta0)
+#size_CZ(alpha=alpha,N.T=N.T,N.C=N.C,delta0=delta0)
+size_MN(alpha=alpha,N.T=N.T,N.C=N.C,delta0=delta0)
+size_Wald(alpha=alpha,N.T=N.T,N.C=N.C,delta0=delta0)
+```
+
+## Getting help
+
+```{r, eval = FALSE}
+help(package="EC")
+```
+
+
+
+[HB21]: https://arxiv.org/pdf/2104.04660.pdf

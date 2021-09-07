@@ -1,6 +1,6 @@
 Package: EC
 Title: Exact-corrected confidence interval and other useful functions to analyze noninferiority binomial trials
-Version: 3.5
+Version: 3.6
 Authors@R: 
     c(person(given = "Nour",
            family = "Hawila",
