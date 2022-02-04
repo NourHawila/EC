@@ -489,9 +489,50 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
     if(pval>0.999999999999999) {
       count=100
     }
+
+    monotonicity_check = function(Delta,zvals){
+      left = NA
+      right = NA
+      left[1] = Delta[1]
+      right[1] = Delta[1]
+      counter=1
+
+      for(i in 1:(length(Delta)-1)){
+        if( (zvals[i+1]-zvals[i])>=0 ) right[counter] = Delta[i+1]
+        if(i==1){
+          if( (zvals[i+1]-zvals[i])<0 ) left[counter] = Delta[i+1]
+        }
+        if((i>1)){
+          if( ((zvals[i+1]-zvals[i])<0) & ((zvals[i]-zvals[i-1])>=0)){
+            counter=counter+1
+            left[counter] = Delta[i+1]
+            right[counter] = Delta[i+1]
+          }
+        }
+
+
+      }
+      out = ""
+      for(i in 1:length(left)){
+        if(left[i]!=right[i]){
+          if(out!="") out = paste(out,paste("(",round(left[i],2),", ",round(right[i],2),")",sep=""),sep=" and ")
+          if(out=="") out = paste("(",round(left[i],2),", ",round(right[i],2),")",sep="")
+        }
+      }
+      paste0("The statistic Z_EC is monotonically increasing in the range(s) ", out, " with a grid size of 0.01.")
+    }
+
+
+    Delta=seq(-0.99,0.99,0.01)
+    stat_EC2 = Vectorize(stat_EC,"Delta")
+    zvals=unlist(stat_EC2(x.T,x.C,N.T,N.C,Delta,delta0)["Z",])
+    monot = sum(diff(zvals)<0)
+
+    if(monot==0) outp = "The statistic Z_EC is confirmed to be monotonically increasing with a grid size of 0.01."
+    if(monot>0) outp = monotonicity_check(Delta,zvals)
   }
 
-  chi2=qchisq(1-alpha,1)
+    chi2=qchisq(1-alpha,1)
 
   if(count!=100) {
     D1=x.T/N.T-x.C/N.C
@@ -539,7 +580,9 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
     ci.upper = 1
   }
 
-  list(ci.lower=ci.lower,ci.upper=ci.upper,count=count)
+  if(EC) out = list(ci.lower=ci.lower,ci.upper=ci.upper,count=count,outp=outp)
+  if(!EC) out = list(ci.lower=ci.lower,ci.upper=ci.upper,count=count)
+  out
 }
 
 

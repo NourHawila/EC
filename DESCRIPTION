@@ -1,6 +1,7 @@
 Package: EC
-Title: Exact-corrected confidence interval and other useful functions to analyze noninferiority binomial trials
-Version: 3.6
+Title: Exact-corrected confidence interval and other useful functions
+        to analyze noninferiority binomial trials
+Version: 4.0
 Authors@R: 
     c(person(given = "Nour",
            family = "Hawila",
@@ -19,11 +20,9 @@ RoxygenNote: 7.1.1
 Imports: Rdpack
 RdMacros: Rdpack
 NeedsCompilation: no
-Packaged: 2021-09-03 21:22:07 UTC; nourhawila
+Packaged: 2022-02-04 19:59:08 UTC; nourhawila
 Author: Nour Hawila [aut, cre],
   Arthur Berg [aut]
 Maintainer: Nour Hawila <hawilanour@gmail.com>
-Suggests: 
-    rmarkdown,
-    knitr
+Suggests: rmarkdown, knitr
 VignetteBuilder: knitr
