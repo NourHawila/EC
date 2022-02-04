@@ -519,7 +519,7 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
           if(out=="") out = paste("(",round(left[i],2),", ",round(right[i],2),")",sep="")
         }
       }
-      paste0("The statistic Z_EC is monotonically increasing in the range(s) ", out, " with a grid size of 0.01.")
+      paste0("The statistic Z_EC is monotonically increasing in the range(s) ", out,".")
     }
 
 
@@ -528,7 +528,7 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
     zvals=unlist(stat_EC2(x.T,x.C,N.T,N.C,Delta,delta0)["Z",])
     monot = sum(diff(zvals)<0)
 
-    if(monot==0) outp = "The statistic Z_EC is confirmed to be monotonically increasing with a grid size of 0.01."
+    if(monot==0) outp = "The statistic Z_EC is confirmed to be monotonically increasing."
     if(monot>0) outp = monotonicity_check(Delta,zvals)
   }
 
