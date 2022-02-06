@@ -526,7 +526,7 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
     Delta=seq(-0.99,0.99,0.01)
     stat_EC2 = Vectorize(stat_EC,"Delta")
     zvals=unlist(stat_EC2(x.T,x.C,N.T,N.C,Delta,delta0)["Z",])
-    monot = sum(diff(zvals)<0)
+    monot = sum(diff(zvals)<0,na.rm=TRUE)
 
     if(monot==0) outp = "The statistic Z_EC is confirmed to be monotonically increasing."
     if(monot>0) outp = monotonicity_check(Delta,zvals)
