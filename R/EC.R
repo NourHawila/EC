@@ -483,10 +483,10 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
     MR.C = rml$MR.C
     DEN_obs <- (MR.T * (1 - MR.T) / N.T + MR.C * (1 - MR.C) / N.C)
     pval=pval_Chan(x.T=x.T,x.C=x.C,N.T=N.T,N.C=N.C,delta0=delta0,method=method,lower = TRUE)
-    if(pval<0.999999999999999) {
+    if(pval<0.999999999999999 & pval>1e-15) {
       ECval=sqrt(DEN_obs)*(stat_general(x.T=x.T, x.C=x.C, N.T=N.T, N.C=N.C, delta0=delta0, method)-qnorm(1-pval))
     }
-    if(pval>0.999999999999999) {
+    if(pval>0.999999999999999 | pval<1e-15) {
       count=100
     }
 
@@ -527,7 +527,7 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
     stat_EC2 = Vectorize(stat_EC,"Delta")
     zvals=unlist(stat_EC2(x.T,x.C,N.T,N.C,Delta,delta0)["Z",])
     ind.na = which(is.na(unlist(stat_EC2(x.T,x.C,N.T,N.C,Delta,delta0)["Z",])))
-    zvals = zvals[-ind.na]
+    if(length(ind.na)>0) zvals=zvals[-ind.na]
     monot = sum(diff(zvals)<0)
 
     if(monot==0) outp = "The statistic Z_EC is confirmed to be monotonically increasing."
