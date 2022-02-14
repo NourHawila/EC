@@ -518,7 +518,7 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
           if(out=="") out = paste("(",round(left[i],2),", ",round(right[i],2),")",sep="")
         }
       }
-      paste0("The statistic Z_EC is monotonically increasing in the range(s) ", out,".")
+      paste0("Monotonicity of Z_EC is not present on all of [-1,1]; Z_EC is monotonically increasing in the range(s) ", out,".")
     }
 
 

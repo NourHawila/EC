@@ -20,7 +20,7 @@ RoxygenNote: 7.1.1
 Imports: Rdpack
 RdMacros: Rdpack
 NeedsCompilation: no
-Packaged: 2022-02-14 22:18:35 UTC; nourhawila
+Packaged: 2022-02-14 23:43:43 UTC; nourhawila
 Author: Nour Hawila [aut, cre],
   Arthur Berg [aut]
 Maintainer: Nour Hawila <hawilanour@gmail.com>
