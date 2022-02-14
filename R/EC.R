@@ -508,7 +508,7 @@ ci_general = function(x.T, x.C, N.T, N.C, delta0, method="MN", EC, alpha=.05, to
             left[counter] = Delta[i+1]
             right[counter] = Delta[i+1]
           }
-          if((zvals[i+1]-zvals[i])<0 ) left[counter] = Delta[i+1]
+          if((zvals[i]-zvals[i-1])<0 ) left[counter] = Delta[i+1]
         }
       }
       out = ""
